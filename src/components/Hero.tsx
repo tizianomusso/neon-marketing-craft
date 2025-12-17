@@ -82,9 +82,9 @@ const Hero = () => {
           duration: 0.8,
           delay: 0.8
         }} className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-16 max-w-3xl mx-auto">
-            <AnimatedCounter end={500} suffix="+" label="Campañas exitosas" />
-            <AnimatedCounter end={2} prefix="$" suffix="M+" label="En ventas generadas" />
-            <AnimatedCounter end={150} suffix="+" label="Clientes satisfechos" />
+            <AnimatedCounter end={100} suffix="%" label="Transparencia" />
+            <AnimatedCounter end={20} suffix="" label="Clientes Activos" />
+            <AnimatedCounter end={10} suffix="x" label="ROAS Promedio" />
           </motion.div>
         </div>
 
