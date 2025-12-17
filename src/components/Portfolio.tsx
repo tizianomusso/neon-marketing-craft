@@ -16,6 +16,7 @@ interface Project {
   description: string;
   gradient: string;
   tags: string[];
+  videoUrl?: string;
 }
 
 const projects: Project[] = [
@@ -30,6 +31,7 @@ const projects: Project[] = [
     description: 'Campaña de Meta Ads para el show de Anuel AA en Tecnópolis. Sold out con más de 30,000 asistentes.',
     gradient: 'from-purple-600 to-pink-500',
     tags: ['Meta Ads', 'Eventos', 'Música'],
+    videoUrl: '/videos/anuel-tecnopolis.mp4',
   },
   {
     id: 2,
@@ -566,13 +568,31 @@ const ProjectCard = ({
       }`}
       style={{ perspective: '1000px' }}
     >
-      {/* Background Gradient with Parallax */}
-      <motion.div 
-        className={`absolute inset-0 bg-gradient-to-br ${project.gradient}`}
-        initial={{ opacity: 0.15, scale: 1 }}
-        whileHover={{ opacity: 0.25, scale: 1.05 }}
-        transition={{ duration: 0.4 }}
-      />
+      {/* Video Background */}
+      {project.videoUrl && (
+        <div className="absolute inset-0 overflow-hidden">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity duration-500"
+          >
+            <source src={project.videoUrl} type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent" />
+        </div>
+      )}
+
+      {/* Background Gradient with Parallax (only if no video) */}
+      {!project.videoUrl && (
+        <motion.div 
+          className={`absolute inset-0 bg-gradient-to-br ${project.gradient}`}
+          initial={{ opacity: 0.15, scale: 1 }}
+          whileHover={{ opacity: 0.25, scale: 1.05 }}
+          transition={{ duration: 0.4 }}
+        />
+      )}
       
       {/* Glass Card */}
       <motion.div 
