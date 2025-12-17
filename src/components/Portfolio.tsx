@@ -576,11 +576,11 @@ const ProjectCard = ({
             loop
             muted
             playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity duration-500"
+            className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500"
           >
             <source src={project.videoUrl} type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-transparent to-transparent" />
         </div>
       )}
 
