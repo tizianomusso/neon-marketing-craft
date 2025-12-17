@@ -18,6 +18,7 @@ interface Project {
   tags: string[];
   videoUrl?: string;
   imageUrl?: string;
+  websiteUrl?: string;
 }
 
 const projects: Project[] = [
@@ -59,6 +60,7 @@ const projects: Project[] = [
     gradient: 'from-emerald-500 to-teal-600',
     tags: ['Sistema Web', 'Real Estate'],
     imageUrl: '/images/tencery-bienes-raices.png',
+    websiteUrl: 'https://tencerybienesraices.com.ar/',
   },
   {
     id: 4,
@@ -675,13 +677,33 @@ const ProjectCard = ({
             transition={{ duration: 0.3 }}
             className="flex items-center gap-2 text-[#06B6D4] font-medium"
           >
-            <span>Ver caso completo</span>
-            <motion.div
-              animate={{ x: isHovered ? [0, 5, 0] : 0 }}
-              transition={{ duration: 0.6, repeat: isHovered ? Infinity : 0, repeatDelay: 0.5 }}
-            >
-              <ArrowUpRight className="w-4 h-4" />
-            </motion.div>
+            {project.websiteUrl ? (
+              <a 
+                href={project.websiteUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 hover:underline"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <span>Ver página</span>
+                <motion.div
+                  animate={{ x: isHovered ? [0, 5, 0] : 0 }}
+                  transition={{ duration: 0.6, repeat: isHovered ? Infinity : 0, repeatDelay: 0.5 }}
+                >
+                  <ArrowUpRight className="w-4 h-4" />
+                </motion.div>
+              </a>
+            ) : (
+              <>
+                <span>Ver caso completo</span>
+                <motion.div
+                  animate={{ x: isHovered ? [0, 5, 0] : 0 }}
+                  transition={{ duration: 0.6, repeat: isHovered ? Infinity : 0, repeatDelay: 0.5 }}
+                >
+                  <ArrowUpRight className="w-4 h-4" />
+                </motion.div>
+              </>
+            )}
           </motion.div>
         </div>
       </motion.div>
