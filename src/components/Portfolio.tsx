@@ -63,18 +63,6 @@ const projects: Project[] = [
     websiteUrl: 'https://tencerybienesraices.com.ar/',
   },
   {
-    id: 4,
-    name: 'FinanceApp',
-    category: 'campaigns',
-    subCategory: 'google-ads',
-    result: '15K leads',
-    resultNumber: 15,
-    resultSuffix: 'K leads',
-    description: 'App financiera con campañas de Google Ads',
-    gradient: 'from-emerald-500 to-teal-600',
-    tags: ['Google Ads', 'Fintech'],
-  },
-  {
     id: 5,
     name: 'Marlon Hoffstadt',
     category: 'websites',
