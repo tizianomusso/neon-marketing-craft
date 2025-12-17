@@ -89,18 +89,6 @@ const projects: Project[] = [
     tags: ['Meta Ads', 'E-commerce'],
     imageUrl: '/images/relajate-che.jpg',
   },
-  {
-    id: 7,
-    name: 'LogiTrack',
-    category: 'websites',
-    subCategory: 'sistemas',
-    result: '-60% tiempo',
-    resultNumber: 60,
-    resultSuffix: '% faster',
-    description: 'Sistema web que automatizó procesos operativos',
-    gradient: 'from-violet-500 to-purple-600',
-    tags: ['Sistema', 'Logística'],
-  },
 ];
 
 const subFilters: Record<Category, { id: SubCategory; label: string }[]> = {
