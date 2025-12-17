@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Calendar, Clock, User, Mail, ArrowRight, Check, Loader2 } from 'lucide-react';
-import { format, addDays, setHours, setMinutes, isBefore, startOfDay } from 'date-fns';
+import { X, Calendar, Clock, User, Mail, Phone, ArrowRight, Check, Loader2 } from 'lucide-react';
+import { format, setHours, setMinutes, isBefore, startOfDay } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { Calendar as CalendarComponent } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
@@ -23,6 +23,7 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -40,19 +41,18 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedDate || !selectedTime || !name || !email) return;
+    if (!selectedDate || !selectedTime || !name || !email || !phone) return;
 
     setIsLoading(true);
 
     try {
-      const [hours, minutes] = selectedTime.split(':').map(Number);
-      const dateTime = setMinutes(setHours(selectedDate, hours), minutes);
-
-      const { data, error } = await supabase.functions.invoke('create-calendar-event', {
+      const { data, error } = await supabase.functions.invoke('create-booking', {
         body: {
           name,
           email,
-          dateTime: dateTime.toISOString(),
+          phone,
+          date: format(selectedDate, 'yyyy-MM-dd'),
+          time: selectedTime,
           timezone: Intl.DateTimeFormat().resolvedOptions().timeZone
         }
       });
@@ -60,8 +60,8 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
       if (error) throw error;
 
       setIsSuccess(true);
-      toast.success('¡Reunión agendada exitosamente!', {
-        description: 'Recibirás un email con los detalles y el link de Google Meet.'
+      toast.success('¡Consulta agendada exitosamente!', {
+        description: 'Nos pondremos en contacto contigo pronto para confirmar.'
       });
 
       setTimeout(() => {
@@ -70,8 +70,8 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
       }, 3000);
 
     } catch (error) {
-      console.error('Error creating event:', error);
-      toast.error('Error al agendar la reunión', {
+      console.error('Error creating booking:', error);
+      toast.error('Error al agendar la consulta', {
         description: 'Por favor intenta nuevamente.'
       });
     } finally {
@@ -85,6 +85,7 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
     setSelectedTime(null);
     setName('');
     setEmail('');
+    setPhone('');
     setIsSuccess(false);
   };
 
@@ -180,10 +181,10 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
                       <Check className="w-8 h-8 text-primary" />
                     </div>
                     <h3 className="text-xl font-bold text-white mb-2">
-                      ¡Reunión Confirmada!
+                      ¡Consulta Agendada!
                     </h3>
                     <p className="text-gray-400">
-                      Te enviamos un email con los detalles y el link de Google Meet.
+                      Nos pondremos en contacto contigo para confirmar la reunión.
                     </p>
                   </motion.div>
                 ) : step === 1 ? (
@@ -320,6 +321,20 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
                           />
                         </div>
                       </div>
+                      <div>
+                        <label className="block text-sm text-gray-400 mb-1.5">Teléfono / WhatsApp</label>
+                        <div className="relative">
+                          <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                          <Input
+                            type="tel"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            placeholder="+54 9 11 1234-5678"
+                            required
+                            className="pl-10 bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-primary"
+                          />
+                        </div>
+                      </div>
                       <button
                         type="submit"
                         disabled={isLoading}
@@ -332,7 +347,7 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
                           </>
                         ) : (
                           <>
-                            Confirmar reunión
+                            Confirmar consulta
                             <ArrowRight className="w-5 h-5" />
                           </>
                         )}

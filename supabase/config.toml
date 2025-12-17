@@ -2,3 +2,6 @@ project_id = "kbjdonjrobwqtwwvgrmn"
 
 [functions.create-calendar-event]
 verify_jwt = false
+
+[functions.create-booking]
+verify_jwt = false
