@@ -39,7 +39,7 @@ const projects: Project[] = [
     category: 'campaigns',
     subCategory: 'meta-ads',
     result: 'Crecimiento Exponencial',
-    resultNumber: 500,
+    resultNumber: 100,
     resultSuffix: '% Growth',
     description: 'Estrategia de contenido y podcast que impulsó el crecimiento de la marca.',
     gradient: 'from-cyan-500 to-blue-600',
