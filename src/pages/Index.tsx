@@ -9,7 +9,6 @@ import ServicesPricing from '@/components/ServicesPricing';
 import CRMShowcase from '@/components/CRMShowcase';
 import Process from '@/components/Process';
 import Portfolio from '@/components/Portfolio';
-import Testimonials from '@/components/Testimonials';
 import WhyUs from '@/components/WhyUs';
 import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
@@ -44,7 +43,6 @@ const Index = () => {
           <CRMShowcase />
           <Process />
           <Portfolio />
-          <Testimonials />
           <WhyUs />
           <CTA />
         </main>
