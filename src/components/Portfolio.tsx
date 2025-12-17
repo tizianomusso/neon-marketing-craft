@@ -17,6 +17,7 @@ interface Project {
   gradient: string;
   tags: string[];
   videoUrl?: string;
+  imageUrl?: string;
 }
 
 const projects: Project[] = [
@@ -84,15 +85,16 @@ const projects: Project[] = [
   },
   {
     id: 6,
-    name: 'EduLearn',
+    name: 'Relajate Che',
     category: 'campaigns',
     subCategory: 'meta-ads',
-    result: '10K estudiantes',
-    resultNumber: 10,
-    resultSuffix: 'K users',
-    description: 'Plataforma educativa con expansión internacional',
-    gradient: 'from-amber-500 to-orange-600',
-    tags: ['Meta Ads', 'Edu'],
+    result: '$0 a $35M/mes',
+    resultNumber: 35,
+    resultSuffix: 'M/mes',
+    description: 'De $0 a $35 millones por mes en menos de 3 meses con Meta Ads.',
+    gradient: 'from-blue-600 to-indigo-700',
+    tags: ['Meta Ads', 'E-commerce'],
+    imageUrl: '/images/relajate-che.jpg',
   },
   {
     id: 7,
@@ -585,8 +587,20 @@ const ProjectCard = ({
         </div>
       )}
 
-      {/* Background Gradient with Parallax (only if no video) */}
-      {!project.videoUrl && (
+      {/* Image Background */}
+      {project.imageUrl && !project.videoUrl && (
+        <div className="absolute inset-0 overflow-hidden">
+          <img
+            src={project.imageUrl}
+            alt={project.name}
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+        </div>
+      )}
+
+      {/* Background Gradient with Parallax (only if no video or image) */}
+      {!project.videoUrl && !project.imageUrl && (
         <motion.div 
           className={`absolute inset-0 bg-gradient-to-br ${project.gradient}`}
           initial={{ opacity: 0.15, scale: 1 }}
