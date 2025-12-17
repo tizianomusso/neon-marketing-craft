@@ -245,8 +245,8 @@ const ServicesPricing = () => {
             NUESTROS SERVICIOS
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
-            Te lo decimos ahora,{" "}
-            <span className="text-gray-900 font-black">sin vueltas.</span>
+            Soluciones{" "}
+            <span className="text-cyan-500 font-black">a tu medida</span>
           </h2>
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
             Soluciones digitales transparentes con precios claros. Sin sorpresas.
