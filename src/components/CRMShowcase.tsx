@@ -1,0 +1,407 @@
+import { useState, useRef } from 'react';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
+import { 
+  BarChart3, 
+  Users, 
+  MessageSquare, 
+  Calendar, 
+  TrendingUp, 
+  Bell,
+  FileText,
+  Target,
+  Zap,
+  CheckCircle2,
+  Play,
+  Maximize2
+} from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+
+const features = [
+  {
+    id: 'leads',
+    icon: Users,
+    title: 'Gestión de Leads',
+    description: 'Visualizá todos tus leads en un solo lugar. Filtros avanzados, estados personalizados y seguimiento automático.',
+    highlights: [
+      'Pipeline visual drag & drop',
+      'Scoring automático de leads',
+      'Historial completo de interacciones',
+      'Asignación automática por reglas'
+    ]
+  },
+  {
+    id: 'analytics',
+    icon: BarChart3,
+    title: 'Analytics en Tiempo Real',
+    description: 'Métricas de rendimiento actualizadas al instante. Sabé exactamente cuánto te cuesta cada lead y cada venta.',
+    highlights: [
+      'Costo por lead y por conversión',
+      'ROI de cada campaña',
+      'Comparativas semanales/mensuales',
+      'Exportación de reportes'
+    ]
+  },
+  {
+    id: 'communication',
+    icon: MessageSquare,
+    title: 'Centro de Comunicación',
+    description: 'WhatsApp, email y llamadas integradas. Respondé desde el CRM sin cambiar de ventana.',
+    highlights: [
+      'WhatsApp Business integrado',
+      'Templates de mensajes',
+      'Respuestas automáticas',
+      'Historial unificado'
+    ]
+  },
+  {
+    id: 'calendar',
+    icon: Calendar,
+    title: 'Agenda Inteligente',
+    description: 'Coordiná citas, reuniones y seguimientos. Recordatorios automáticos para vos y tus clientes.',
+    highlights: [
+      'Sincronización con Google Calendar',
+      'Recordatorios automáticos por WhatsApp',
+      'Disponibilidad online para clientes',
+      'Vista de equipo completa'
+    ]
+  }
+];
+
+const stats = [
+  { value: '3x', label: 'Más organización', icon: Target },
+  { value: '50%', label: 'Menos tiempo en admin', icon: Zap },
+  { value: '100%', label: 'Visibilidad de datos', icon: TrendingUp },
+  { value: '24/7', label: 'Acceso desde cualquier lugar', icon: Bell }
+];
+
+const CRMShowcase = () => {
+  const [activeTab, setActiveTab] = useState('leads');
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const rotateX = useTransform(y, [-150, 150], [5, -5]);
+  const rotateY = useTransform(x, [-150, 150], [-5, 5]);
+
+  const springRotateX = useSpring(rotateX, { stiffness: 100, damping: 20 });
+  const springRotateY = useSpring(rotateY, { stiffness: 100, damping: 20 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    x.set(e.clientX - centerX);
+    y.set(e.clientY - centerY);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+    setIsHovered(false);
+  };
+
+  const toggleVideo = () => {
+    if (videoRef.current) {
+      if (isVideoPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsVideoPlaying(!isVideoPlaying);
+    }
+  };
+
+  const activeFeature = features.find(f => f.id === activeTab);
+
+  return (
+    <section className="py-24 md:py-32 bg-gray-950 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
+      </div>
+
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <span className="inline-block px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full text-cyan-400 text-sm font-semibold tracking-wider mb-6">
+            INCLUIDO CON TU CAMPAÑA
+          </span>
+          
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            No solo hacemos campañas
+          </h2>
+          
+          <p className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-6 max-w-4xl mx-auto">
+            Te damos el sistema para medir, ordenar y escalar tu negocio con datos reales.
+          </p>
+          
+          <p className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
+            Cuando trabajás con nosotros, no solo recibís una campaña de ads. Accedés a un CRM personalizado 
+            y un panel de control completo para ver exactamente qué está pasando con tu negocio.
+          </p>
+        </motion.div>
+
+        {/* Stats Row */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16"
+        >
+          {stats.map((stat, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-6 text-center hover:border-cyan-500/50 transition-all duration-300 group"
+            >
+              <stat.icon className="w-8 h-8 text-cyan-400 mx-auto mb-3 group-hover:scale-110 transition-transform" />
+              <div className="text-3xl md:text-4xl font-bold text-white mb-1">{stat.value}</div>
+              <div className="text-gray-500 text-sm">{stat.label}</div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Main Content - Video + Features */}
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+          {/* Video/Demo Section */}
+          <motion.div
+            ref={containerRef}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            onMouseMove={handleMouseMove}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={handleMouseLeave}
+            style={{
+              rotateX: springRotateX,
+              rotateY: springRotateY,
+              transformStyle: 'preserve-3d',
+              perspective: 1000
+            }}
+            className="relative"
+          >
+            {/* Floating Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="absolute -top-4 -right-4 z-20 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg shadow-cyan-500/30"
+            >
+              Tu panel de control
+            </motion.div>
+
+            {/* Browser Window Frame */}
+            <div className={`relative bg-gray-900 rounded-2xl overflow-hidden border-2 transition-all duration-500 ${isHovered ? 'border-cyan-500/50 shadow-2xl shadow-cyan-500/20' : 'border-gray-800 shadow-xl'}`}>
+              {/* Browser Header */}
+              <div className="flex items-center gap-2 px-4 py-3 bg-gray-900 border-b border-gray-800">
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                  <div className="w-3 h-3 rounded-full bg-green-500" />
+                </div>
+                <div className="flex-1 mx-4">
+                  <div className="bg-gray-800 rounded-lg px-4 py-1.5 text-gray-400 text-sm flex items-center gap-2">
+                    <div className="w-4 h-4 rounded-full bg-green-500/20 flex items-center justify-center">
+                      <div className="w-2 h-2 rounded-full bg-green-500" />
+                    </div>
+                    <span>crm.innovasolutions.com</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Video Container */}
+              <div className="relative aspect-video bg-gray-950 group">
+                <video
+                  ref={videoRef}
+                  className="w-full h-full object-cover"
+                  loop
+                  muted
+                  playsInline
+                  poster="/videos/crm-poster.jpg"
+                >
+                  <source src="/videos/crm-demo.mov" type="video/quicktime" />
+                  <source src="/videos/crm-demo.mp4" type="video/mp4" />
+                </video>
+
+                {/* Play Button Overlay */}
+                {!isVideoPlaying && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="absolute inset-0 flex items-center justify-center bg-gray-950/60 backdrop-blur-sm"
+                  >
+                    {/* Animated Skeleton/Placeholder */}
+                    <div className="absolute inset-0 p-4">
+                      <div className="h-full flex gap-4">
+                        {/* Sidebar skeleton */}
+                        <div className="w-16 bg-gray-800/50 rounded-lg flex flex-col items-center py-4 gap-4">
+                          {[...Array(5)].map((_, i) => (
+                            <motion.div
+                              key={i}
+                              animate={{ opacity: [0.3, 0.6, 0.3] }}
+                              transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
+                              className="w-8 h-8 bg-gray-700/50 rounded-lg"
+                            />
+                          ))}
+                        </div>
+                        {/* Main content skeleton */}
+                        <div className="flex-1 space-y-4">
+                          <motion.div
+                            animate={{ opacity: [0.3, 0.5, 0.3] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                            className="h-8 bg-gray-800/50 rounded-lg w-1/3"
+                          />
+                          <div className="grid grid-cols-3 gap-4">
+                            {[...Array(3)].map((_, i) => (
+                              <motion.div
+                                key={i}
+                                animate={{ opacity: [0.3, 0.6, 0.3] }}
+                                transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+                                className="h-24 bg-gray-800/50 rounded-lg"
+                              />
+                            ))}
+                          </div>
+                          <motion.div
+                            animate={{ opacity: [0.3, 0.5, 0.3] }}
+                            transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                            className="h-32 bg-gray-800/50 rounded-lg"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={toggleVideo}
+                      className="relative z-10 w-20 h-20 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/30 hover:scale-110 transition-transform group"
+                    >
+                      <Play className="w-8 h-8 text-white ml-1" fill="white" />
+                      <motion.div
+                        animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0, 0.5] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                        className="absolute inset-0 rounded-full border-2 border-cyan-400"
+                      />
+                    </button>
+                  </motion.div>
+                )}
+
+                {/* Fullscreen Button */}
+                <button
+                  className="absolute bottom-4 right-4 p-2 bg-gray-900/80 backdrop-blur-sm rounded-lg text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-cyan-500"
+                >
+                  <Maximize2 className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Shadow */}
+            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-4/5 h-8 bg-cyan-500/20 blur-2xl rounded-full" />
+          </motion.div>
+
+          {/* Features Section */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <TabsList className="w-full grid grid-cols-4 bg-gray-900/50 border border-gray-800 rounded-xl p-1 mb-6">
+                {features.map((feature) => (
+                  <TabsTrigger
+                    key={feature.id}
+                    value={feature.id}
+                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-blue-500 data-[state=active]:text-white rounded-lg py-3 text-gray-400 hover:text-white transition-colors"
+                  >
+                    <feature.icon className="w-5 h-5" />
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+
+              {features.map((feature) => (
+                <TabsContent key={feature.id} value={feature.id} className="mt-0">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-6 md:p-8"
+                  >
+                    <div className="flex items-center gap-4 mb-4">
+                      <div className="w-14 h-14 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-xl flex items-center justify-center">
+                        <feature.icon className="w-7 h-7 text-cyan-400" />
+                      </div>
+                      <h3 className="text-2xl font-bold text-white">{feature.title}</h3>
+                    </div>
+
+                    <p className="text-gray-400 mb-6 leading-relaxed">
+                      {feature.description}
+                    </p>
+
+                    <div className="space-y-3">
+                      {feature.highlights.map((highlight, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                          className="flex items-center gap-3 text-gray-300"
+                        >
+                          <CheckCircle2 className="w-5 h-5 text-cyan-400 flex-shrink-0" />
+                          <span>{highlight}</span>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
+                </TabsContent>
+              ))}
+            </Tabs>
+
+            {/* CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="mt-8 p-6 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/30 rounded-2xl"
+            >
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <FileText className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h4 className="text-white font-semibold mb-2">
+                    Sin costo adicional
+                  </h4>
+                  <p className="text-gray-400 text-sm">
+                    El acceso al CRM está incluido en todos nuestros planes de campañas publicitarias. 
+                    No pagás extra por tener el control total de tus datos.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default CRMShowcase;
