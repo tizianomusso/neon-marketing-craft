@@ -21,6 +21,18 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
+    name: 'Anuel AA - Tecnópolis',
+    category: 'campaigns',
+    subCategory: 'meta-ads',
+    result: 'SOLD OUT',
+    resultNumber: 30,
+    resultSuffix: 'K personas',
+    description: 'Campaña de Meta Ads para el show de Anuel AA en Tecnópolis. Sold out con más de 30,000 asistentes.',
+    gradient: 'from-purple-600 to-pink-500',
+    tags: ['Meta Ads', 'Eventos', 'Música'],
+  },
+  {
+    id: 2,
     name: 'TechStart',
     category: 'campaigns',
     subCategory: 'meta-ads',
@@ -32,7 +44,7 @@ const projects: Project[] = [
     tags: ['Meta Ads', 'SaaS'],
   },
   {
-    id: 2,
+    id: 3,
     name: 'FashionHub',
     category: 'websites',
     subCategory: 'ecommerce',
@@ -44,7 +56,7 @@ const projects: Project[] = [
     tags: ['E-commerce', 'Moda'],
   },
   {
-    id: 3,
+    id: 4,
     name: 'FinanceApp',
     category: 'campaigns',
     subCategory: 'google-ads',
@@ -56,7 +68,7 @@ const projects: Project[] = [
     tags: ['Google Ads', 'Fintech'],
   },
   {
-    id: 4,
+    id: 5,
     name: 'HealthPlus',
     category: 'websites',
     subCategory: 'landing',
@@ -68,7 +80,7 @@ const projects: Project[] = [
     tags: ['Landing', 'Salud'],
   },
   {
-    id: 5,
+    id: 6,
     name: 'EduLearn',
     category: 'campaigns',
     subCategory: 'meta-ads',
@@ -80,7 +92,7 @@ const projects: Project[] = [
     tags: ['Meta Ads', 'Edu'],
   },
   {
-    id: 6,
+    id: 7,
     name: 'LogiTrack',
     category: 'websites',
     subCategory: 'sistemas',
