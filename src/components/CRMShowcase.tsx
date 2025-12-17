@@ -10,11 +10,10 @@ import {
   FileText,
   Target,
   Zap,
-  CheckCircle2,
-  Play,
-  Maximize2
+  CheckCircle2
 } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import CRMMockup from '@/components/services/CRMMockup';
 
 const features = [
   {
@@ -76,10 +75,8 @@ const stats = [
 
 const CRMShowcase = () => {
   const [activeTab, setActiveTab] = useState('leads');
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -104,19 +101,6 @@ const CRMShowcase = () => {
     y.set(0);
     setIsHovered(false);
   };
-
-  const toggleVideo = () => {
-    if (videoRef.current) {
-      if (isVideoPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-      setIsVideoPlaying(!isVideoPlaying);
-    }
-  };
-
-  const activeFeature = features.find(f => f.id === activeTab);
 
   return (
     <section className="py-24 md:py-32 bg-gray-950 relative overflow-hidden">
@@ -228,87 +212,9 @@ const CRMShowcase = () => {
                 </div>
               </div>
 
-              {/* Video Container */}
-              <div className="relative aspect-video bg-gray-950 group">
-                <video
-                  ref={videoRef}
-                  className="w-full h-full object-cover"
-                  loop
-                  muted
-                  playsInline
-                  poster="/videos/crm-poster.jpg"
-                >
-                  <source src="/videos/crm-demo.mov" type="video/quicktime" />
-                  <source src="/videos/crm-demo.mp4" type="video/mp4" />
-                </video>
-
-                {/* Play Button Overlay */}
-                {!isVideoPlaying && (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="absolute inset-0 flex items-center justify-center bg-gray-950/60 backdrop-blur-sm"
-                  >
-                    {/* Animated Skeleton/Placeholder */}
-                    <div className="absolute inset-0 p-4">
-                      <div className="h-full flex gap-4">
-                        {/* Sidebar skeleton */}
-                        <div className="w-16 bg-gray-800/50 rounded-lg flex flex-col items-center py-4 gap-4">
-                          {[...Array(5)].map((_, i) => (
-                            <motion.div
-                              key={i}
-                              animate={{ opacity: [0.3, 0.6, 0.3] }}
-                              transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
-                              className="w-8 h-8 bg-gray-700/50 rounded-lg"
-                            />
-                          ))}
-                        </div>
-                        {/* Main content skeleton */}
-                        <div className="flex-1 space-y-4">
-                          <motion.div
-                            animate={{ opacity: [0.3, 0.5, 0.3] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                            className="h-8 bg-gray-800/50 rounded-lg w-1/3"
-                          />
-                          <div className="grid grid-cols-3 gap-4">
-                            {[...Array(3)].map((_, i) => (
-                              <motion.div
-                                key={i}
-                                animate={{ opacity: [0.3, 0.6, 0.3] }}
-                                transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
-                                className="h-24 bg-gray-800/50 rounded-lg"
-                              />
-                            ))}
-                          </div>
-                          <motion.div
-                            animate={{ opacity: [0.3, 0.5, 0.3] }}
-                            transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                            className="h-32 bg-gray-800/50 rounded-lg"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <button
-                      onClick={toggleVideo}
-                      className="relative z-10 w-20 h-20 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center shadow-lg shadow-cyan-500/30 hover:scale-110 transition-transform group"
-                    >
-                      <Play className="w-8 h-8 text-white ml-1" fill="white" />
-                      <motion.div
-                        animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0, 0.5] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                        className="absolute inset-0 rounded-full border-2 border-cyan-400"
-                      />
-                    </button>
-                  </motion.div>
-                )}
-
-                {/* Fullscreen Button */}
-                <button
-                  className="absolute bottom-4 right-4 p-2 bg-gray-900/80 backdrop-blur-sm rounded-lg text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-cyan-500"
-                >
-                  <Maximize2 className="w-5 h-5" />
-                </button>
+              {/* CRM Mockup Container */}
+              <div className="relative aspect-[4/3] bg-gray-950">
+                <CRMMockup />
               </div>
             </div>
 
