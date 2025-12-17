@@ -5,7 +5,7 @@ import LoadingScreen from '@/components/LoadingScreen';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
-import WebPagesPricing from '@/components/WebPagesPricing';
+import ServicesPricing from '@/components/ServicesPricing';
 import Process from '@/components/Process';
 import Portfolio from '@/components/Portfolio';
 import Testimonials from '@/components/Testimonials';
@@ -39,7 +39,7 @@ const Index = () => {
         <main>
           <Hero />
           <Services />
-          <WebPagesPricing />
+          <ServicesPricing />
           <Process />
           <Portfolio />
           <Testimonials />
