@@ -1,37 +1,27 @@
 import { motion } from 'framer-motion';
-import { Facebook, Search, Layout, ShoppingCart, Monitor, Code2 } from 'lucide-react';
+import { Target, Layout, Zap, BarChart3 } from 'lucide-react';
 import ServiceCard from './ServiceCard';
 
 const services = [
   {
-    icon: Facebook,
-    title: 'Meta Ads',
-    description: 'Campañas en Facebook e Instagram que convierten. Llegamos a tu audiencia ideal con creativos que generan resultados.',
-  },
-  {
-    icon: Search,
-    title: 'Google Ads',
-    description: 'Aparece primero cuando tus clientes te buscan. Maximizamos tu ROI con campañas de búsqueda y display optimizadas.',
+    icon: Target,
+    title: 'Sistema de Adquisición',
+    description: 'Creamos máquinas de generación de leads y ventas que funcionan mientras dormís. Estrategia, ejecución y optimización constante en Meta Ads, Google Ads y TikTok Ads.',
   },
   {
     icon: Layout,
-    title: 'Landing Pages',
-    description: 'Páginas diseñadas para convertir visitantes en clientes. Optimizadas para velocidad y conversión.',
+    title: 'Assets de Conversión',
+    description: 'Landing pages, sitios web y embudos diseñados para convertir visitantes en clientes. No hacemos páginas bonitas, hacemos páginas que venden.',
   },
   {
-    icon: ShoppingCart,
-    title: 'E-commerce',
-    description: 'Tiendas online optimizadas para vender 24/7. Integraciones de pago y logística sin complicaciones.',
+    icon: Zap,
+    title: 'Operaciones Inteligentes',
+    description: 'Automatizamos tu seguimiento, nurturing y atención al cliente con IA. Escalá tu operación sin contratar más personal.',
   },
   {
-    icon: Monitor,
-    title: 'Sistemas Web',
-    description: 'Dashboards y paneles admin a medida. Automatiza procesos y gestiona tu negocio de forma eficiente.',
-  },
-  {
-    icon: Code2,
-    title: 'Desarrollo de Software',
-    description: 'Soluciones tecnológicas personalizadas. Desde APIs hasta aplicaciones complejas adaptadas a tu negocio.',
+    icon: BarChart3,
+    title: 'Data & Analytics',
+    description: 'Dashboards en tiempo real, tracking avanzado y reportes que te muestran exactamente qué está funcionando y dónde están las oportunidades.',
   },
 ];
 
@@ -59,8 +49,8 @@ const Services = () => {
             transition={{ delay: 0.1 }}
             className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-6"
           >
-            Soluciones que impulsan{' '}
-            <span className="gradient-text">tu crecimiento</span>
+            Cómo hacemos crecer{' '}
+            <span className="gradient-text">tu negocio</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -69,12 +59,12 @@ const Services = () => {
             transition={{ delay: 0.2 }}
             className="text-muted-foreground text-lg max-w-2xl mx-auto"
           >
-            Combinamos creatividad, tecnología y datos para crear estrategias que realmente funcionan.
+            Un sistema completo de crecimiento, no servicios sueltos.
           </motion.p>
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
             <ServiceCard
               key={service.title}

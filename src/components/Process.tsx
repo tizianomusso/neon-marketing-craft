@@ -6,26 +6,26 @@ const steps = [
   {
     icon: Search,
     number: '01',
-    title: 'Análisis',
-    description: 'Estudiamos tu negocio, competencia y mercado para entender tus oportunidades de crecimiento.',
+    title: 'Diagnóstico',
+    description: 'Analizamos tu negocio, competencia y oportunidades. Identificamos qué frena tu crecimiento y qué palancas podemos activar para acelerarlo.',
   },
   {
     icon: Target,
     number: '02',
     title: 'Estrategia',
-    description: 'Diseñamos un plan de acción personalizado con objetivos claros y métricas definidas.',
+    description: 'Diseñamos un plan de growth a medida con KPIs claros, canales prioritarios y un roadmap de 90 días. Nada de templates genéricos.',
   },
   {
     icon: Rocket,
     number: '03',
-    title: 'Implementación',
-    description: 'Ejecutamos las campañas y desarrollos con precisión, cuidando cada detalle.',
+    title: 'Ejecución',
+    description: 'Implementamos campañas, construimos assets y configuramos automatizaciones. Vos te enfocás en tu negocio, nosotros en hacerlo crecer.',
   },
   {
     icon: TrendingUp,
     number: '04',
     title: 'Optimización',
-    description: 'Medimos, analizamos y optimizamos continuamente para maximizar tus resultados.',
+    description: 'Analizamos datos, iteramos rápido y escalamos lo que funciona. Reuniones semanales para que siempre sepas qué está pasando.',
   },
 ];
 
@@ -49,7 +49,7 @@ const Process = () => {
             viewport={{ once: true }}
             className="inline-block text-primary text-sm font-semibold tracking-wider uppercase mb-4"
           >
-            Nuestro Proceso
+            El Método Innova
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -58,8 +58,8 @@ const Process = () => {
             transition={{ delay: 0.1 }}
             className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-6"
           >
-            Cómo llevamos tu negocio{' '}
-            <span className="gradient-text">al siguiente nivel</span>
+            Un proceso probado para llevar tu negocio{' '}
+            <span className="gradient-text">donde querés que esté</span>
           </motion.h2>
         </div>
 

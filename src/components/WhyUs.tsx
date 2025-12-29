@@ -1,26 +1,26 @@
 import { motion } from 'framer-motion';
-import { BarChart3, Users, Zap, Headphones } from 'lucide-react';
+import { Users, BarChart3, Zap, MessageSquare } from 'lucide-react';
 
 const features = [
   {
-    icon: BarChart3,
-    title: 'Resultados Medibles',
-    description: 'Todo lo que hacemos está respaldado por datos. Reportes transparentes y métricas claras.',
+    icon: Users,
+    title: 'Partners, no proveedores',
+    description: 'Nos involucramos en tu negocio como si fuera nuestro. Tu crecimiento es nuestro crecimiento.',
   },
   {
-    icon: Users,
-    title: 'Equipo Especializado',
-    description: 'Profesionales certificados en cada área. Expertos en Meta, Google y desarrollo web.',
+    icon: BarChart3,
+    title: 'Obsesionados con los datos',
+    description: 'Cada decisión respaldada por métricas. Dashboard en tiempo real y total transparencia.',
   },
   {
     icon: Zap,
-    title: 'Tecnología de Punta',
-    description: 'Utilizamos las herramientas más avanzadas e IA para maximizar tu rendimiento.',
+    title: 'Tecnología de punta',
+    description: 'Usamos IA y automatización para hacer en horas lo que antes tomaba días.',
   },
   {
-    icon: Headphones,
-    title: 'Soporte Continuo',
-    description: 'Comunicación constante y soporte dedicado. Siempre estamos ahí cuando nos necesitas.',
+    icon: MessageSquare,
+    title: 'Comunicación real',
+    description: 'Respuesta en menos de 24hs, reuniones semanales y canal directo con tu equipo.',
   },
 ];
 
@@ -36,7 +36,7 @@ const WhyUs = () => {
             viewport={{ once: true }}
             className="inline-block text-primary text-sm font-semibold tracking-wider uppercase mb-4"
           >
-            Por qué elegirnos
+            Lo que nos hace diferentes
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -45,8 +45,8 @@ const WhyUs = () => {
             transition={{ delay: 0.1 }}
             className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-6"
           >
-            La diferencia{' '}
-            <span className="gradient-text">Innova</span>
+            Por qué elegirnos como{' '}
+            <span className="gradient-text">tu partner de growth</span>
           </motion.h2>
         </div>
 

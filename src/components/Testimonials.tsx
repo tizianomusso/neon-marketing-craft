@@ -44,7 +44,7 @@ const Testimonials = () => {
             viewport={{ once: true }}
             className="inline-block text-primary text-sm font-semibold tracking-wider uppercase mb-4"
           >
-            Testimonios
+            Lo que dicen nuestros clientes
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -53,8 +53,8 @@ const Testimonials = () => {
             transition={{ delay: 0.1 }}
             className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-6"
           >
-            Lo que dicen{' '}
-            <span className="gradient-text">nuestros clientes</span>
+            Resultados reales de{' '}
+            <span className="gradient-text">negocios reales</span>
           </motion.h2>
         </div>
 
