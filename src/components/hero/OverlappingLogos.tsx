@@ -25,7 +25,7 @@ const OverlappingLogos = () => {
           animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ delay: 0.5 + index * 0.1, duration: 0.4 }}
           whileHover={{ scale: 1.1, zIndex: 10 }}
-          className={`relative bg-white border border-gray-100 shadow-2xl h-14 w-14 lg:h-20 lg:w-20 rounded-full flex items-center justify-center cursor-pointer transition-transform ${logo.smallPadding ? 'p-2 lg:p-2.5' : 'p-3 lg:p-4'}`}
+          className={`relative bg-white border border-gray-100 shadow-2xl h-14 w-14 lg:h-20 lg:w-20 rounded-full flex items-center justify-center cursor-pointer transition-transform ${logo.smallPadding ? 'p-1 lg:p-1.5' : 'p-3 lg:p-4'}`}
           style={{ zIndex: logos.length - index }}
         >
           <img 
