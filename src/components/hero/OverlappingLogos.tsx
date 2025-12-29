@@ -3,7 +3,7 @@ import metaLogo from '@/assets/logos/meta.svg';
 import googleLogo from '@/assets/logos/google.png';
 import tiktokLogo from '@/assets/logos/tiktok.svg';
 import instagramLogo from '@/assets/logos/instagram.svg';
-import claudeLogo from '@/assets/logos/claude.svg';
+import claudeLogo from '@/assets/logos/claude.png';
 import openaiLogo from '@/assets/logos/openai.svg';
 
 const logos = [
