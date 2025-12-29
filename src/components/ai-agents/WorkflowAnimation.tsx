@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MessageCircle, Brain, Mail, Calendar, Database } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface NodeProps {
   icon: React.ReactNode;
@@ -9,26 +10,30 @@ interface NodeProps {
   size?: 'normal' | 'large';
   isActive?: boolean;
   delay?: number;
+  isMobile?: boolean;
 }
 
-const WorkflowNode = ({ icon, label, color, size = 'normal', isActive = false, delay = 0 }: NodeProps) => {
+const WorkflowNode = ({ icon, label, color, size = 'normal', isActive = false, delay = 0, isMobile = false }: NodeProps) => {
   const sizeClasses = size === 'large' ? 'w-24 h-24' : 'w-20 h-20';
+  
+  // Mobile: no hover animations
+  const hoverProps = isMobile ? {} : { whileHover: { scale: 1.05, borderColor: 'rgb(6, 182, 212)' } };
   
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, delay }}
-      whileHover={{ scale: 1.05, borderColor: 'rgb(6, 182, 212)' }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: isMobile ? 0.2 : 0.5, delay: isMobile ? 0 : delay }}
+      {...hoverProps}
       className={`${sizeClasses} relative bg-slate-800/80 backdrop-blur rounded-xl border border-slate-700 flex flex-col items-center justify-center gap-1 cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/20 group`}
     >
-      {/* Glow effect for active/large nodes */}
+      {/* Glow effect for active/large nodes - static on mobile */}
       {(isActive || size === 'large') && (
         <div className={`absolute inset-0 ${color} opacity-20 blur-xl rounded-xl`} />
       )}
       
-      {/* Pulse ring for trigger node */}
-      {isActive && (
+      {/* Pulse ring for trigger node - disabled on mobile */}
+      {isActive && !isMobile && (
         <motion.div
           className={`absolute inset-0 ${color} rounded-xl opacity-30`}
           animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0, 0.3] }}
@@ -47,22 +52,27 @@ const WorkflowNode = ({ icon, label, color, size = 'normal', isActive = false, d
 const WorkflowAnimation = () => {
   const [activeOutput, setActiveOutput] = useState(0);
   const [taskCount, setTaskCount] = useState(847);
+  const isMobile = useIsMobile();
 
-  // Cycle through output nodes
+  // Cycle through output nodes - disabled on mobile
   useEffect(() => {
+    if (isMobile) return;
+    
     const interval = setInterval(() => {
       setActiveOutput((prev) => (prev + 1) % 3);
     }, 1500);
     return () => clearInterval(interval);
-  }, []);
+  }, [isMobile]);
 
-  // Increment task counter
+  // Increment task counter - disabled on mobile
   useEffect(() => {
+    if (isMobile) return;
+    
     const interval = setInterval(() => {
       setTaskCount((prev) => prev + 1);
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isMobile]);
 
   return (
     <div className="relative">
@@ -77,7 +87,7 @@ const WorkflowAnimation = () => {
           backgroundSize: '20px 20px',
         }}
       >
-        {/* SVG for connection lines */}
+        {/* SVG for connection lines - hide animated dots on mobile */}
         <svg 
           className="absolute inset-0 w-full h-full pointer-events-none"
           viewBox="0 0 400 300"
@@ -126,30 +136,34 @@ const WorkflowAnimation = () => {
             strokeWidth="2"
           />
           
-          {/* Animated dots on paths */}
-          <circle r="4" fill="#06b6d4">
-            <animateMotion dur="2s" repeatCount="indefinite">
-              <mpath href="#path1" />
-            </animateMotion>
-          </circle>
-          
-          <circle r="4" fill="#06b6d4">
-            <animateMotion dur="2s" repeatCount="indefinite" begin="0.5s">
-              <mpath href="#path2" />
-            </animateMotion>
-          </circle>
-          
-          <circle r="4" fill="#06b6d4">
-            <animateMotion dur="2s" repeatCount="indefinite" begin="1s">
-              <mpath href="#path3" />
-            </animateMotion>
-          </circle>
-          
-          <circle r="4" fill="#06b6d4">
-            <animateMotion dur="2s" repeatCount="indefinite" begin="1.5s">
-              <mpath href="#path4" />
-            </animateMotion>
-          </circle>
+          {/* Animated dots on paths - only on desktop */}
+          {!isMobile && (
+            <>
+              <circle r="4" fill="#06b6d4">
+                <animateMotion dur="2s" repeatCount="indefinite">
+                  <mpath href="#path1" />
+                </animateMotion>
+              </circle>
+              
+              <circle r="4" fill="#06b6d4">
+                <animateMotion dur="2s" repeatCount="indefinite" begin="0.5s">
+                  <mpath href="#path2" />
+                </animateMotion>
+              </circle>
+              
+              <circle r="4" fill="#06b6d4">
+                <animateMotion dur="2s" repeatCount="indefinite" begin="1s">
+                  <mpath href="#path3" />
+                </animateMotion>
+              </circle>
+              
+              <circle r="4" fill="#06b6d4">
+                <animateMotion dur="2s" repeatCount="indefinite" begin="1.5s">
+                  <mpath href="#path4" />
+                </animateMotion>
+              </circle>
+            </>
+          )}
         </svg>
 
         {/* Nodes container */}
@@ -162,29 +176,42 @@ const WorkflowAnimation = () => {
               color="bg-green-500"
               isActive
               delay={0.2}
+              isMobile={isMobile}
             />
           </div>
 
           {/* AI Agent Node - Center */}
           <div className="flex-shrink-0 mx-4 lg:mx-8">
-            <motion.div
-              animate={{ boxShadow: ['0 0 20px rgba(168, 85, 247, 0.3)', '0 0 40px rgba(168, 85, 247, 0.5)', '0 0 20px rgba(168, 85, 247, 0.3)'] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
+            {isMobile ? (
               <WorkflowNode
                 icon={<Brain className="w-6 h-6 text-white" />}
                 label="Agente IA"
                 color="bg-purple-500"
                 size="large"
-                delay={0.4}
+                delay={0}
+                isMobile={isMobile}
               />
-            </motion.div>
+            ) : (
+              <motion.div
+                animate={{ boxShadow: ['0 0 20px rgba(168, 85, 247, 0.3)', '0 0 40px rgba(168, 85, 247, 0.5)', '0 0 20px rgba(168, 85, 247, 0.3)'] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <WorkflowNode
+                  icon={<Brain className="w-6 h-6 text-white" />}
+                  label="Agente IA"
+                  color="bg-purple-500"
+                  size="large"
+                  delay={0.4}
+                  isMobile={isMobile}
+                />
+              </motion.div>
+            )}
           </div>
 
           {/* Output Nodes */}
           <div className="flex flex-col gap-4 flex-shrink-0">
             <motion.div
-              animate={{ 
+              animate={isMobile ? {} : { 
                 opacity: activeOutput === 0 ? 1 : 0.6,
                 scale: activeOutput === 0 ? 1.05 : 1,
               }}
@@ -195,11 +222,12 @@ const WorkflowAnimation = () => {
                 label="Enviar email"
                 color="bg-blue-500"
                 delay={0.6}
+                isMobile={isMobile}
               />
             </motion.div>
             
             <motion.div
-              animate={{ 
+              animate={isMobile ? {} : { 
                 opacity: activeOutput === 1 ? 1 : 0.6,
                 scale: activeOutput === 1 ? 1.05 : 1,
               }}
@@ -210,11 +238,12 @@ const WorkflowAnimation = () => {
                 label="Agendar cita"
                 color="bg-orange-500"
                 delay={0.7}
+                isMobile={isMobile}
               />
             </motion.div>
             
             <motion.div
-              animate={{ 
+              animate={isMobile ? {} : { 
                 opacity: activeOutput === 2 ? 1 : 0.6,
                 scale: activeOutput === 2 ? 1.05 : 1,
               }}
@@ -225,6 +254,7 @@ const WorkflowAnimation = () => {
                 label="Guardar en CRM"
                 color="bg-pink-500"
                 delay={0.8}
+                isMobile={isMobile}
               />
             </motion.div>
           </div>
@@ -233,9 +263,9 @@ const WorkflowAnimation = () => {
 
       {/* Task counter */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: isMobile ? 0 : 1, duration: isMobile ? 0.2 : 0.5 }}
         className="mt-4 text-center"
       >
         <span className="text-slate-400 text-sm">
