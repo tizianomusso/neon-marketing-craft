@@ -1,13 +1,18 @@
 import { motion } from 'framer-motion';
+import metaLogo from '@/assets/logos/meta.svg';
+import googleLogo from '@/assets/logos/google.svg';
+import tiktokLogo from '@/assets/logos/tiktok.svg';
+import instagramLogo from '@/assets/logos/instagram.svg';
+import claudeLogo from '@/assets/logos/claude.svg';
+import openaiLogo from '@/assets/logos/openai.svg';
 
-// Tool logos with brand colors (using initials as fallback)
 const logos = [
-  { name: 'Meta', color: '#0668E1', textColor: 'white' },
-  { name: 'Google', color: '#4285F4', textColor: 'white' },
-  { name: 'TikTok', color: '#000000', textColor: 'white' },
-  { name: 'Instagram', color: '#E4405F', textColor: 'white' },
-  { name: 'Claude', color: '#D97757', textColor: 'white' },
-  { name: 'OpenAI', color: '#10a37f', textColor: 'white' },
+  { name: 'Meta', logo: metaLogo },
+  { name: 'Google', logo: googleLogo },
+  { name: 'TikTok', logo: tiktokLogo },
+  { name: 'Instagram', logo: instagramLogo },
+  { name: 'Claude', logo: claudeLogo },
+  { name: 'OpenAI', logo: openaiLogo },
 ];
 
 const OverlappingLogos = () => {
@@ -23,12 +28,11 @@ const OverlappingLogos = () => {
           className="relative bg-white border border-gray-100 shadow-2xl h-14 w-14 lg:h-20 lg:w-20 rounded-full p-3 lg:p-4 flex items-center justify-center cursor-pointer transition-transform"
           style={{ zIndex: logos.length - index }}
         >
-          <div 
-            className="w-full h-full rounded-full flex items-center justify-center text-xs lg:text-sm font-bold"
-            style={{ backgroundColor: logo.color, color: logo.textColor }}
-          >
-            {logo.name.charAt(0)}
-          </div>
+          <img 
+            src={logo.logo} 
+            alt={logo.name} 
+            className="w-full h-full object-contain"
+          />
         </motion.div>
       ))}
     </div>
