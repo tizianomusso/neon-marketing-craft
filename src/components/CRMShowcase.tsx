@@ -127,7 +127,7 @@ const CRMShowcase = () => {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
       </div>
 
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
+      <div className="container mx-auto px-4 md:px-6 relative z-10 overflow-x-hidden">
         {/* Header */}
         <motion.div
           {...fadeIn}
@@ -169,17 +169,17 @@ const CRMShowcase = () => {
         </motion.div>
 
         {/* Main Content - Video + Features */}
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start max-w-full">
           {/* Video/Demo Section - No 3D effect on mobile */}
           {isMobile ? (
-            <div className="relative">
+            <div className="relative max-w-full overflow-hidden">
               {/* Floating Badge */}
-              <div className="absolute -top-4 -right-4 z-20 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
+              <div className="absolute -top-2 right-2 z-20 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-3 py-1.5 rounded-full text-xs font-semibold">
                 Tu panel de control
               </div>
 
               {/* STATIC IMAGE for mobile - optimized WebP */}
-              <div className="relative bg-gray-900 rounded-2xl overflow-hidden border-2 border-gray-800">
+              <div className="relative bg-gray-900 rounded-xl overflow-hidden border-2 border-gray-800">
                 {/* Browser Header - simplified */}
                 <div className="flex items-center gap-2 px-4 py-3 bg-gray-900 border-b border-gray-800">
                   <div className="flex gap-2">
