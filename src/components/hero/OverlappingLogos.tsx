@@ -3,7 +3,7 @@ import metaLogo from '@/assets/logos/meta.svg';
 import googleLogo from '@/assets/logos/google.svg';
 import tiktokLogo from '@/assets/logos/tiktok.svg';
 import instagramLogo from '@/assets/logos/instagram.svg';
-import claudeLogo from '@/assets/logos/claude.png';
+import n8nLogo from '@/assets/logos/n8n.svg';
 import openaiLogo from '@/assets/logos/openai.svg';
 
 const logos = [
@@ -11,7 +11,7 @@ const logos = [
   { name: 'Google', logo: googleLogo },
   { name: 'TikTok', logo: tiktokLogo },
   { name: 'Instagram', logo: instagramLogo },
-  { name: 'Claude', logo: claudeLogo },
+  { name: 'n8n', logo: n8nLogo },
   { name: 'OpenAI', logo: openaiLogo },
 ];
 
