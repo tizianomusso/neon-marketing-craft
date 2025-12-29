@@ -172,54 +172,180 @@
     transform: translateZ(0);
     backface-visibility: hidden;
   }
+
+  /* Mobile-optimized animation utilities */
+  .animate-gpu {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+  }
 }
 
+/* Keyframe animations using only GPU-accelerated properties */
 @keyframes float {
   0%, 100% {
-    transform: translateY(0px);
+    transform: translateY(0px) translateZ(0);
   }
   50% {
-    transform: translateY(-20px);
+    transform: translateY(-20px) translateZ(0);
   }
 }
 
 @keyframes pulseGlow {
   0%, 100% {
-    box-shadow: 0 0 20px hsl(189 94% 43% / 0.2);
+    opacity: 0.6;
+    transform: scale(1) translateZ(0);
   }
   50% {
-    box-shadow: 0 0 40px hsl(189 94% 43% / 0.4);
+    opacity: 1;
+    transform: scale(1.02) translateZ(0);
   }
 }
 
 @keyframes gradientMove {
   0% {
-    background-position: 0% 50%;
+    transform: translateX(0%) translateZ(0);
   }
   50% {
-    background-position: 100% 50%;
+    transform: translateX(-25%) translateZ(0);
   }
   100% {
-    background-position: 0% 50%;
+    transform: translateX(0%) translateZ(0);
   }
 }
 
 @keyframes shimmer {
   0% {
-    background-position: -200% 0;
+    transform: translateX(-100%) translateZ(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
   }
   100% {
-    background-position: 200% 0;
+    transform: translateX(100%) translateZ(0);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateZ(0);
   }
 }
 
 .animate-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
   background: linear-gradient(
     90deg,
-    hsl(189 94% 43% / 0) 0%,
+    transparent 0%,
     hsl(189 94% 43% / 0.1) 50%,
-    hsl(189 94% 43% / 0) 100%
+    transparent 100%
   );
-  background-size: 200% 100%;
   animation: shimmer 2s infinite;
+  will-change: transform, opacity;
+}
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-float,
+  .animate-pulse-glow,
+  .animate-gradient,
+  .animate-shimmer::after {
+    animation: none !important;
+  }
+}
+
+/* Mobile animation optimizations (screens < 768px) */
+@media (max-width: 767px) {
+  /* Reduce all animation durations to max 300ms */
+  * {
+    --animation-duration: 300ms;
+  }
+
+  /* Simpler transitions for mobile */
+  .animate-float {
+    animation-duration: 4s;
+    animation-timing-function: ease-in-out;
+  }
+
+  .animate-pulse-glow {
+    animation-duration: 3s;
+  }
+
+  /* Force GPU acceleration on animated elements */
+  [class*="animate-"],
+  [class*="transition-"],
+  .motion-safe {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Reduce animation complexity */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) translateZ(0);
+    }
+    50% {
+      transform: translateY(-10px) translateZ(0);
+    }
+  }
+
+  /* Disable complex shadows on mobile for performance */
+  .glow-primary,
+  .glow-secondary {
+    box-shadow: none;
+  }
+
+  /* Simpler hover effects */
+  .hover-scale {
+    transition: transform 200ms ease-out, opacity 200ms ease-out;
+  }
+
+  .hover-scale:active {
+    transform: scale(0.98) translateZ(0);
+  }
+}
+
+/* Tablet and up: slightly more complex animations allowed */
+@media (min-width: 768px) {
+  .animate-float {
+    animation-duration: 6s;
+  }
+
+  .animate-pulse-glow {
+    animation-duration: 2s;
+  }
 }
