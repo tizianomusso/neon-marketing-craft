@@ -26,7 +26,7 @@ const timelineItems = [
     title: 'Próximamente: Nuestra app',
     description:
       'Estamos desarrollando una aplicación móvil que permitirá a nuestros clientes tener toda la información de sus campañas en la palma de su mano. Reportes en tiempo real, métricas clave y comunicación directa con el equipo.',
-    highlight: 'Lanzamiento previsto para 2025',
+    highlight: 'Lanzamiento previsto para 2026',
     comingSoon: true,
   },
 ];
