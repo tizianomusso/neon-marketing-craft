@@ -15,6 +15,7 @@ const CRMShowcase = lazy(() => import('@/components/CRMShowcase'));
 const Process = lazy(() => import('@/components/Process'));
 const Portfolio = lazy(() => import('@/components/Portfolio'));
 const WhyUs = lazy(() => import('@/components/WhyUs'));
+const AboutPreview = lazy(() => import('@/components/AboutPreview'));
 const CTA = lazy(() => import('@/components/CTA'));
 const Footer = lazy(() => import('@/components/Footer'));
 
@@ -95,6 +96,7 @@ const Index = () => {
               <Suspense fallback={<SectionPlaceholder />}>
                 <Portfolio />
                 <WhyUs />
+                <AboutPreview />
                 <CTA />
               </Suspense>
             )}
