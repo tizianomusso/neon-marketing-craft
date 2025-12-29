@@ -71,7 +71,7 @@ const Process = () => {
         </div>
 
         {/* Timeline */}
-        <div ref={containerRef} className="relative max-w-4xl mx-auto">
+        <div ref={containerRef} className="relative max-w-4xl mx-auto pl-4 md:pl-0">
           {/* Progress Line - static on mobile, animated on desktop */}
           <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-border md:-translate-x-px">
             {isMobile ? (
