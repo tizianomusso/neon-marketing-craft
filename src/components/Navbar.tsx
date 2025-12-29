@@ -46,12 +46,12 @@ const Navbar = () => {
                 className="text-sm font-medium text-slate-300 hover:text-white transition-colors relative group"
               >
                 {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-purple-400 transition-all duration-300 group-hover:w-full" />
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-cyan-400 transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
             <a
               href="#contacto"
-              className="px-5 py-2.5 border border-white/30 rounded-lg text-sm font-semibold text-white hover:bg-white hover:text-slate-900 transition-all duration-300"
+              className="px-5 py-2 border border-white/30 rounded-full text-sm font-semibold text-white hover:bg-white hover:text-slate-900 transition-all duration-300"
             >
               Contactar
             </a>
