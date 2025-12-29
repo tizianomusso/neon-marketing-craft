@@ -7,6 +7,7 @@ import { Calendar as CalendarComponent } from '@/components/ui/calendar';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
+import { useGoogleCalendar } from '@/hooks/useGoogleCalendar';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -26,6 +27,9 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
   const [phone, setPhone] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [calendarAdded, setCalendarAdded] = useState(false);
+  
+  const { addToCalendar, isLoading: isCalendarLoading } = useGoogleCalendar();
 
   const handleDateSelect = (date: Date | undefined) => {
     setSelectedDate(date);
@@ -61,13 +65,8 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
 
       setIsSuccess(true);
       toast.success('¡Consulta agendada exitosamente!', {
-        description: 'Nos pondremos en contacto contigo pronto para confirmar.'
+        description: 'Podés agregar el evento a tu Google Calendar.'
       });
-
-      setTimeout(() => {
-        onClose();
-        resetForm();
-      }, 3000);
 
     } catch (error) {
       console.error('Error creating booking:', error);
@@ -79,6 +78,37 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
     }
   };
 
+  const handleAddToCalendar = async () => {
+    if (!selectedDate || !selectedTime) return;
+
+    const [hours, minutes] = selectedTime.split(':').map(Number);
+    const startDateTime = new Date(selectedDate);
+    startDateTime.setHours(hours, minutes, 0, 0);
+
+    const success = await addToCalendar({
+      title: 'Diagnóstico con Innova Solutions',
+      description: `Reunión de diagnóstico gratuita\n\nDatos del cliente:\n- Nombre: ${name}\n- Email: ${email}\n- Teléfono: ${phone}\n\nDuración: 30 minutos`,
+      startDateTime,
+      durationMinutes: 30,
+    });
+
+    if (success) {
+      setCalendarAdded(true);
+      toast.success('¡Evento agregado a tu calendario!', {
+        description: 'Recibirás recordatorios 1 día y 1 hora antes.'
+      });
+    } else {
+      toast.error('No se pudo agregar al calendario', {
+        description: 'Inténtalo nuevamente o agrégalo manualmente.'
+      });
+    }
+  };
+
+  const handleClose = () => {
+    onClose();
+    setTimeout(resetForm, 300);
+  };
+
   const resetForm = () => {
     setStep(1);
     setSelectedDate(undefined);
@@ -87,11 +117,7 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
     setEmail('');
     setPhone('');
     setIsSuccess(false);
-  };
-
-  const handleClose = () => {
-    onClose();
-    setTimeout(resetForm, 300);
+    setCalendarAdded(false);
   };
 
   const disabledDays = (date: Date) => {
@@ -175,7 +201,7 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
-                    className="text-center py-8"
+                    className="text-center py-6"
                   >
                     <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
                       <Check className="w-8 h-8 text-primary" />
@@ -183,9 +209,46 @@ const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
                     <h3 className="text-xl font-bold text-white mb-2">
                       ¡Consulta Agendada!
                     </h3>
-                    <p className="text-gray-400">
-                      Nos pondremos en contacto contigo para confirmar la reunión.
+                    <p className="text-gray-400 mb-6">
+                      {selectedDate && format(selectedDate, "EEEE d 'de' MMMM", { locale: es })} a las {selectedTime}
                     </p>
+                    
+                    {!calendarAdded ? (
+                      <button
+                        onClick={handleAddToCalendar}
+                        disabled={isCalendarLoading}
+                        className="w-full py-3 bg-white rounded-lg text-gray-900 font-bold flex items-center justify-center gap-3 hover:bg-gray-100 transition-colors disabled:opacity-50"
+                      >
+                        {isCalendarLoading ? (
+                          <>
+                            <Loader2 className="w-5 h-5 animate-spin" />
+                            Conectando...
+                          </>
+                        ) : (
+                          <>
+                            <svg className="w-5 h-5" viewBox="0 0 24 24">
+                              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                            </svg>
+                            Agregar a Google Calendar
+                          </>
+                        )}
+                      </button>
+                    ) : (
+                      <div className="flex items-center justify-center gap-2 text-green-400">
+                        <Check className="w-5 h-5" />
+                        <span>Agregado a tu calendario</span>
+                      </div>
+                    )}
+                    
+                    <button
+                      onClick={handleClose}
+                      className="mt-4 text-gray-400 hover:text-white transition-colors text-sm"
+                    >
+                      Cerrar
+                    </button>
                   </motion.div>
                 ) : step === 1 ? (
                   <motion.div
