@@ -1,7 +1,5 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Check, MessageSquare, Users, Headphones, BarChart3, Link2 } from 'lucide-react';
-import BookingModal from './BookingModal';
 import WorkflowAnimation from './ai-agents/WorkflowAnimation';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -29,7 +27,6 @@ const benefits = [
 ];
 
 const AIAgents = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const isMobile = useIsMobile();
 
   const slideLeft = isMobile
@@ -103,14 +100,16 @@ const AIAgents = () => {
               </ul>
 
               {/* CTA */}
-              <motion.button
-                onClick={() => setIsModalOpen(true)}
+              <motion.a
+                href="https://cal.com/tizi-musso-lvxqn1/diagnostico-gratuito"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={isMobile ? undefined : { y: -2 }}
                 className="group px-8 py-4 bg-cyan-500 hover:bg-cyan-400 rounded-xl font-semibold text-white shadow-lg shadow-cyan-500/25 transition-all duration-300 flex items-center gap-2 mb-3"
               >
                 Quiero automatizar mi negocio
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </motion.button>
+              </motion.a>
 
               <p className="text-slate-400 text-sm">
                 Implementación en menos de 2 semanas
@@ -124,8 +123,6 @@ const AIAgents = () => {
           </div>
         </div>
       </section>
-
-      <BookingModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 };
