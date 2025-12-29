@@ -1,5 +1,5 @@
 import { memo, useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { useIsMobile } from '@/hooks/use-mobile';
 import metaLogo from '@/assets/logos/meta.svg';
 import googleLogo from '@/assets/logos/google.png';
 import tiktokLogo from '@/assets/logos/tiktok.svg';
@@ -20,10 +20,9 @@ const toolsData = [
   { name: 'HubSpot', category: 'CRM', description: 'Seguimiento de cada lead', logo: hubspotLogo, bgColor: '#ffffff' },
 ];
 
-// Memoized tool card component
 const ToolCard = memo(({ tool }: { tool: typeof toolsData[0] }) => (
   <div
-    className="flex-shrink-0 flex items-center gap-4 border border-white/10 backdrop-blur-md rounded-xl px-6 py-4 min-w-[240px] hover:border-white/20 transition-colors cursor-pointer group marquee-item"
+    className="flex-shrink-0 flex items-center gap-4 border border-white/10 backdrop-blur-md rounded-xl px-6 py-4 min-w-[240px] hover:border-white/20 transition-colors cursor-pointer group"
   >
     <div 
       className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 p-2"
@@ -44,39 +43,54 @@ const ToolCard = memo(({ tool }: { tool: typeof toolsData[0] }) => (
 ToolCard.displayName = 'ToolCard';
 
 const ToolsMarquee = () => {
-  // Memoize duplicated tools array
-  const duplicatedTools = useMemo(() => [...toolsData, ...toolsData, ...toolsData, ...toolsData], []);
+  const isMobile = useIsMobile();
+  
+  const duplicatedTools = useMemo(() => {
+    if (isMobile) {
+      return [...toolsData, ...toolsData];
+    }
+    return [...toolsData, ...toolsData, ...toolsData, ...toolsData];
+  }, [isMobile]);
 
   return (
-    <div className="w-full overflow-hidden py-12 contain-layout">
-      {/* Title */}
+    <div className="w-full overflow-hidden py-12">
       <p className="text-center text-white/50 text-lg mb-10">
         Herramientas que potencian tu crecimiento
       </p>
       
-      {/* Marquee container */}
-      <div className="relative marquee-container">
-        {/* Gradient fades */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#09090b] to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#09090b] to-transparent z-10 pointer-events-none" />
+      <div className="relative">
+        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-[#09090b] to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-[#09090b] to-transparent z-10 pointer-events-none" />
         
-        {/* Scrolling content with GPU acceleration */}
-        <motion.div
-          className="flex gap-10 gpu-accelerated"
-          animate={{ x: [0, -2000] }}
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: 'loop',
-              duration: 40,
-              ease: 'linear',
-            },
+        <div 
+          className="flex gap-6 md:gap-10"
+          style={{
+            animation: isMobile ? 'none' : 'marquee 40s linear infinite',
+            ...(isMobile && {
+              overflowX: 'auto',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+              WebkitOverflowScrolling: 'touch',
+            })
           }}
         >
           {duplicatedTools.map((tool, index) => (
             <ToolCard key={`${tool.name}-${index}`} tool={tool} />
           ))}
-        </motion.div>
+        </div>
+        
+        <style>{`
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          
+          @media (max-width: 767px) {
+            .flex::-webkit-scrollbar {
+              display: none;
+            }
+          }
+        `}</style>
       </div>
     </div>
   );
