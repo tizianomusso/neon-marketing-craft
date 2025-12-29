@@ -103,12 +103,18 @@ const subFilters: Record<Category, { id: SubCategory; label: string }[]> = {
   ],
 };
 
-// Animated Counter Component
+// Animated Counter Component - uses Intersection Observer, shows final value instantly on mobile
 const AnimatedMetric = ({ value, suffix, isInView }: { value: number; suffix: string; isInView: boolean }) => {
   const [count, setCount] = useState(0);
-  const [showSparkle, setShowSparkle] = useState(false);
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   useEffect(() => {
+    // Mobile: show final value instantly
+    if (isMobile) {
+      setCount(value);
+      return;
+    }
+    
     if (!isInView) return;
     
     let start = 0;
@@ -119,44 +125,19 @@ const AnimatedMetric = ({ value, suffix, isInView }: { value: number; suffix: st
       start += increment;
       if (start >= value) {
         setCount(value);
-        setShowSparkle(true);
         clearInterval(timer);
-        setTimeout(() => setShowSparkle(false), 1000);
       } else {
         setCount(Math.floor(start));
       }
     }, 16);
 
     return () => clearInterval(timer);
-  }, [isInView, value]);
+  }, [isInView, value, isMobile]);
 
   return (
     <span className="relative">
       <span className="tabular-nums">+{count}</span>
       {suffix}
-      <AnimatePresence>
-        {showSparkle && (
-          <>
-            {[...Array(3)].map((_, i) => (
-              <motion.span
-                key={i}
-                initial={{ opacity: 1, scale: 0, x: 0, y: 0 }}
-                animate={{ 
-                  opacity: 0, 
-                  scale: 1, 
-                  x: (i - 1) * 20,
-                  y: -20 - i * 10
-                }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="absolute -top-1 left-1/2 text-[#06B6D4]"
-              >
-                ✦
-              </motion.span>
-            ))}
-          </>
-        )}
-      </AnimatePresence>
     </span>
   );
 };
@@ -574,6 +555,7 @@ const ProjectCard = ({
           <img
             src={project.imageUrl}
             alt={project.name}
+            loading="lazy"
             className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />

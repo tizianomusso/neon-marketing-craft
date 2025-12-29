@@ -51,8 +51,10 @@ const WorkflowNode = ({ icon, label, color, size = 'normal', isActive = false, d
 
 const WorkflowAnimation = () => {
   const [activeOutput, setActiveOutput] = useState(0);
-  const [taskCount, setTaskCount] = useState(847);
   const isMobile = useIsMobile();
+  
+  // Mobile: show static final value (858)
+  const taskCount = 858;
 
   // Cycle through output nodes - disabled on mobile
   useEffect(() => {
@@ -61,16 +63,6 @@ const WorkflowAnimation = () => {
     const interval = setInterval(() => {
       setActiveOutput((prev) => (prev + 1) % 3);
     }, 1500);
-    return () => clearInterval(interval);
-  }, [isMobile]);
-
-  // Increment task counter - disabled on mobile
-  useEffect(() => {
-    if (isMobile) return;
-    
-    const interval = setInterval(() => {
-      setTaskCount((prev) => prev + 1);
-    }, 3000);
     return () => clearInterval(interval);
   }, [isMobile]);
 

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Quote } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const testimonials = [
   {
@@ -29,33 +30,44 @@ const testimonials = [
 ];
 
 const Testimonials = () => {
+  const isMobile = useIsMobile();
+  
+  // Mobile: instant fade, no hover
+  const cardAnimation = (index: number) => isMobile
+    ? {
+        initial: { opacity: 0 },
+        whileInView: { opacity: 1 },
+        viewport: { once: true },
+        transition: { duration: 0.15 },
+      }
+    : {
+        initial: { opacity: 0, y: 30 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: "-50px" },
+        transition: { duration: 0.5, delay: index * 0.15 },
+        whileHover: { y: -5 },
+      };
+
   return (
     <section id="testimonios" className="py-24 md:py-32 relative overflow-hidden bg-card/30">
-      {/* Background decoration */}
-      <div className="absolute top-0 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-secondary/5 rounded-full blur-3xl" />
+      {/* Background decoration - hidden on mobile for performance */}
+      {!isMobile && (
+        <>
+          <div className="absolute top-0 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-secondary/5 rounded-full blur-3xl" />
+        </>
+      )}
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-block text-primary text-sm font-semibold tracking-wider uppercase mb-4"
-          >
+          <span className="inline-block text-primary text-sm font-semibold tracking-wider uppercase mb-4">
             Lo que dicen nuestros clientes
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-6"
-          >
+          </span>
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
             Resultados reales de{' '}
             <span className="gradient-text">negocios reales</span>
-          </motion.h2>
+          </h2>
         </div>
 
         {/* Testimonials Grid */}
@@ -63,11 +75,7 @@ const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: index * 0.15 }}
-              whileHover={{ y: -5 }}
+              {...cardAnimation(index)}
               className="relative p-6 md:p-8 rounded-2xl glass-card group"
             >
               {/* Quote Icon */}
