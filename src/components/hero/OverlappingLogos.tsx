@@ -1,7 +1,7 @@
 import { memo, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import metaLogo from '@/assets/logos/meta.svg';
-import googleLogo from '@/assets/logos/google.png';
+import manychatLogo from '@/assets/logos/manychat.png';
 import tiktokLogo from '@/assets/logos/tiktok.svg';
 import instagramLogo from '@/assets/logos/instagram.svg';
 import n8nLogo from '@/assets/logos/n8n.svg';
@@ -9,7 +9,7 @@ import openaiLogo from '@/assets/logos/openai.svg';
 
 const logosData = [
   { name: 'Meta', logo: metaLogo, smallPadding: false },
-  { name: 'Google', logo: googleLogo, smallPadding: true },
+  { name: 'Manychat', logo: manychatLogo, smallPadding: true },
   { name: 'TikTok', logo: tiktokLogo, smallPadding: false },
   { name: 'Instagram', logo: instagramLogo, smallPadding: false },
   { name: 'n8n', logo: n8nLogo, smallPadding: false },
