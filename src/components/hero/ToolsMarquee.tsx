@@ -1,14 +1,22 @@
 import { motion } from 'framer-motion';
+import metaLogo from '@/assets/logos/meta.svg';
+import googleLogo from '@/assets/logos/google.svg';
+import tiktokLogo from '@/assets/logos/tiktok.svg';
+import claudeLogo from '@/assets/logos/claude.svg';
+import openaiLogo from '@/assets/logos/openai.svg';
+import n8nLogo from '@/assets/logos/n8n.svg';
+import zapierLogo from '@/assets/logos/zapier.svg';
+import hubspotLogo from '@/assets/logos/hubspot.svg';
 
 const tools = [
-  { name: 'Meta Ads', category: 'Publicidad Digital', description: 'Campañas que convierten', color: '#0668E1' },
-  { name: 'Google Ads', category: 'Search & Display', description: 'Capturá demanda activa', color: '#4285F4' },
-  { name: 'TikTok Ads', category: 'Video Marketing', description: 'Alcance masivo', color: '#000000' },
-  { name: 'Claude AI', category: 'Inteligencia Artificial', description: 'Contenido y análisis', color: '#D97757' },
-  { name: 'ChatGPT', category: 'IA Generativa', description: 'Automatización inteligente', color: '#10a37f' },
-  { name: 'n8n', category: 'Automatización', description: 'Workflows sin código', color: '#EA4B71' },
-  { name: 'Zapier', category: 'Integraciones', description: 'Conectá todo', color: '#FF4A00' },
-  { name: 'HubSpot', category: 'CRM', description: 'Gestión de leads', color: '#FF7A59' },
+  { name: 'Meta Ads', category: 'Publicidad Digital', description: 'Campañas que convierten', logo: metaLogo, bgColor: '#0668E1' },
+  { name: 'Google Ads', category: 'Search & Display', description: 'Capturá demanda activa', logo: googleLogo, bgColor: '#ffffff' },
+  { name: 'TikTok Ads', category: 'Video Marketing', description: 'Alcance masivo', logo: tiktokLogo, bgColor: '#ffffff' },
+  { name: 'Claude AI', category: 'Inteligencia Artificial', description: 'Contenido y análisis', logo: claudeLogo, bgColor: '#D97757' },
+  { name: 'ChatGPT', category: 'IA Generativa', description: 'Automatización inteligente', logo: openaiLogo, bgColor: '#10a37f' },
+  { name: 'n8n', category: 'Automatización', description: 'Workflows sin código', logo: n8nLogo, bgColor: '#ffffff' },
+  { name: 'Zapier', category: 'Integraciones', description: 'Conectá todo', logo: zapierLogo, bgColor: '#ffffff' },
+  { name: 'HubSpot', category: 'CRM', description: 'Gestión de leads', logo: hubspotLogo, bgColor: '#ffffff' },
 ];
 
 // Duplicate for infinite scroll effect
@@ -48,10 +56,10 @@ const ToolsMarquee = () => {
             >
               {/* Icon */}
               <div 
-                className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
-                style={{ backgroundColor: tool.color }}
+                className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 p-2"
+                style={{ backgroundColor: tool.bgColor }}
               >
-                {tool.name.charAt(0)}
+                <img src={tool.logo} alt={tool.name} className="w-full h-full object-contain" />
               </div>
               
               {/* Content */}
