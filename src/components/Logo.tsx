@@ -8,8 +8,8 @@ const Logo = () => {
         alt="Innova Solutions Logo" 
         className="w-10 h-10 object-contain"
       />
-      <span className="font-heading font-bold text-xl text-foreground">
-        Innova<span className="gradient-text">Solutions</span>
+      <span className="font-heading font-bold text-xl">
+        <span className="text-slate-900">Innova</span><span className="text-cyan-500">Solutions</span>
       </span>
     </div>
   );
