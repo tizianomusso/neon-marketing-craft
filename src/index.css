@@ -84,52 +84,68 @@
     @apply bg-primary/20 text-foreground;
   }
 
-  /* Mobile layout fixes */
-  @media (max-width: 767px) {
+  /* Mobile layout fixes - CRITICAL */
+  @media (max-width: 768px) {
     html, body {
-      overflow-x: hidden;
-      width: 100%;
+      overflow-x: hidden !important;
+      width: 100% !important;
+      max-width: 100vw !important;
     }
 
-    /* Ensure all sections have proper padding */
-    section {
-      padding-left: 16px;
-      padding-right: 16px;
-      overflow-x: hidden;
-    }
-
-    /* Container padding */
+    /* FORCE padding on ALL sections and containers */
+    section,
+    main,
     .container {
       padding-left: 16px !important;
       padding-right: 16px !important;
       max-width: 100% !important;
-      overflow-x: hidden;
+      overflow-x: hidden !important;
+      box-sizing: border-box !important;
     }
 
-    /* Prevent any element from overflowing */
-    img, video, iframe, canvas, svg {
-      max-width: 100%;
+    /* Reset any negative margins that might cause overflow */
+    section > div,
+    main > div,
+    .container > div {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+
+    /* Prevent ANY element from overflowing viewport */
+    img, video, iframe, canvas, svg, table {
+      max-width: 100% !important;
       height: auto;
     }
 
-    /* CRM and Dashboard mockups - use more specific class names */
+    /* CRM and Dashboard mockups - MUST fit screen */
     div[class*="mockup"],
     div[class*="Mockup"],
     div[class*="dashboard"],
-    div[class*="Dashboard"] {
-      max-width: 100%;
-      overflow: hidden;
+    div[class*="Dashboard"],
+    div[class*="CRM"],
+    div[class*="crm"] {
+      max-width: 100% !important;
+      width: 100% !important;
+      overflow: hidden !important;
+      transform: none !important;
     }
 
-    /* Fix grid layouts that might overflow */
+    /* Fix grid layouts */
     .grid {
-      max-width: 100%;
+      max-width: 100% !important;
+      overflow-x: hidden !important;
     }
 
     /* Ensure text doesn't get cut off */
-    h1, h2, h3, h4, h5, h6, p, span, a {
+    h1, h2, h3, h4, h5, h6, p, span, a, li, label {
       word-wrap: break-word;
       overflow-wrap: break-word;
+      max-width: 100%;
+    }
+
+    /* Fix any absolute positioned elements */
+    [class*="absolute"] {
+      max-width: 100vw;
     }
   }
 }
