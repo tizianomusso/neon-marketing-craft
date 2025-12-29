@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
 import ServicesPricing from '@/components/ServicesPricing';
+import AIAgents from '@/components/AIAgents';
 import CRMShowcase from '@/components/CRMShowcase';
 import Process from '@/components/Process';
 import Portfolio from '@/components/Portfolio';
@@ -40,6 +41,7 @@ const Index = () => {
           <Hero />
           <Services />
           <ServicesPricing />
+          <AIAgents />
           <CRMShowcase />
           <Process />
           <Portfolio />
