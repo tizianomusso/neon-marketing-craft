@@ -418,7 +418,7 @@ const Portfolio = () => {
             viewport={{ once: true }}
             className="inline-block text-[#06B6D4] text-sm font-semibold tracking-[0.2em] uppercase mb-4"
           >
-            Portfolio
+            Casos de éxito
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -427,10 +427,10 @@ const Portfolio = () => {
             transition={{ delay: 0.1 }}
             className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white"
           >
-            Casos de{' '}
+            Mirá cómo ayudamos a{' '}
             <span className="relative inline-block">
               <span className="bg-gradient-to-r from-[#06B6D4] via-[#3B82F6] to-[#06B6D4] bg-[length:200%_100%] animate-[shimmer_3s_linear_infinite] bg-clip-text text-transparent">
-                éxito
+                negocios como el tuyo
               </span>
             </span>
           </motion.h2>
@@ -441,7 +441,7 @@ const Portfolio = () => {
             transition={{ delay: 0.2 }}
             className="text-gray-400 text-lg max-w-2xl mx-auto"
           >
-            Resultados reales de clientes que confiaron en nosotros.
+            Resultados reales de clientes que confiaron en nosotros para escalar.
           </motion.p>
         </div>
 

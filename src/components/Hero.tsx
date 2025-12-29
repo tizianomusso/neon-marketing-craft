@@ -34,9 +34,9 @@ const Hero = () => {
               duration: 0.8,
               delay: 0.2
             }} className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              Escalamos tu negocio con{' '}
-              <span className="gradient-text">estrategias digitales</span>{' '}
-              que generan resultados
+              Construimos sistemas de{' '}
+              <span className="gradient-text">crecimiento predecible</span>{' '}
+              para negocios ambiciosos
             </motion.h1>
 
             {/* Subheadline */}
@@ -50,8 +50,7 @@ const Hero = () => {
               duration: 0.8,
               delay: 0.4
             }} className="text-lg md:text-xl text-muted-foreground mb-10 max-w-3xl mx-auto">
-              Somos expertos en publicidad digital, desarrollo web y automatizaciones con IA. 
-              Transformamos tu inversión en crecimiento medible.
+              Combinamos paid media, embudos de conversión y automatización con IA para que cada peso invertido se multiplique de forma consistente. Sin promesas vacías, solo datos y resultados.
             </motion.p>
 
             {/* CTAs */}
@@ -69,12 +68,12 @@ const Hero = () => {
                 onClick={() => setIsModalOpen(true)}
                 className="group px-8 py-4 bg-gradient-to-r from-primary to-secondary rounded-xl font-semibold text-primary-foreground hover:opacity-90 transition-all duration-300 glow-primary flex items-center gap-2"
               >
-                Agenda una llamada
+                Agendar diagnóstico gratuito
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
-              <a href="#portfolio" className="group px-8 py-4 rounded-xl font-semibold text-foreground border border-border hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 flex items-center gap-2">
+              <a href="#proceso" className="group px-8 py-4 rounded-xl font-semibold text-foreground border border-border hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 flex items-center gap-2">
                 <Play className="w-5 h-5" />
-                Ver casos de éxito
+                Ver cómo lo hacemos
               </a>
             </motion.div>
 
@@ -89,9 +88,9 @@ const Hero = () => {
               duration: 0.8,
               delay: 0.8
             }} className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-16 max-w-3xl mx-auto">
-              <AnimatedCounter end={100} suffix="%" label="Transparencia" />
-              <AnimatedCounter end={20} suffix="" label="Clientes Activos" />
-              <AnimatedCounter end={10} suffix="x" label="ROAS Promedio" />
+              <AnimatedCounter end={500} prefix="+$" suffix="K" label="Generados para clientes" />
+              <AnimatedCounter end={50} prefix="+" suffix="" label="Proyectos ejecutados" />
+              <AnimatedCounter end={10} suffix="x" label="ROAS promedio" />
             </motion.div>
           </div>
 

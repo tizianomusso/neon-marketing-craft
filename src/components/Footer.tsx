@@ -3,22 +3,19 @@ import Logo from './Logo';
 
 const footerLinks = {
   servicios: [
-    { name: 'Meta Ads', href: '#' },
-    { name: 'Google Ads', href: '#' },
-    { name: 'Landing Pages', href: '#' },
-    { name: 'E-commerce', href: '#' },
-    { name: 'Desarrollo Web', href: '#' },
+    { name: 'Sistema de Adquisición', href: '#servicios' },
+    { name: 'Assets de Conversión', href: '#servicios' },
+    { name: 'Operaciones Inteligentes', href: '#servicios' },
+    { name: 'Data & Analytics', href: '#servicios' },
   ],
   empresa: [
-    { name: 'Sobre Nosotros', href: '#' },
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'Blog', href: '#' },
-    { name: 'Carreras', href: '#' },
+    { name: 'Proceso', href: '#proceso' },
+    { name: 'Casos de éxito', href: '#portfolio' },
+    { name: 'Contacto', href: '#contacto' },
   ],
   legal: [
     { name: 'Privacidad', href: '#' },
     { name: 'Términos', href: '#' },
-    { name: 'Cookies', href: '#' },
   ],
 };
 
@@ -38,8 +35,7 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <Logo />
             <p className="mt-4 text-muted-foreground text-sm max-w-sm">
-              Escalamos negocios con estrategias digitales que generan resultados. 
-              Tu éxito es nuestra misión.
+              Growth partners para negocios ambiciosos.
             </p>
             
             {/* Contact Info */}
@@ -119,10 +115,10 @@ const Footer = () => {
         {/* Bottom Footer */}
         <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Innova Solutions. Todos los derechos reservados.
+            © 2026 InnovaSolutions. Todos los derechos reservados.
           </p>
           <p className="text-sm text-muted-foreground">
-            Hecho con ❤️ para negocios que quieren crecer
+            Growth partners para negocios ambiciosos
           </p>
         </div>
       </div>

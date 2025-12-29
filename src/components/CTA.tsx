@@ -54,8 +54,7 @@ const CTA = () => {
               transition={{ delay: 0.2 }}
               className="text-muted-foreground text-lg md:text-xl mb-10 max-w-2xl mx-auto"
             >
-              Agenda una llamada gratuita con nuestro equipo. Analizaremos tu negocio y te mostraremos 
-              cómo podemos ayudarte a crecer.
+              Agendá una llamada de diagnóstico gratuita. En 30 minutos te mostramos exactamente cómo podemos ayudarte a crecer.
             </motion.p>
 
             {/* CTA Button */}
@@ -69,7 +68,7 @@ const CTA = () => {
                 onClick={() => setIsModalOpen(true)}
                 className="group inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-primary to-secondary rounded-2xl font-heading font-bold text-lg text-primary-foreground hover:opacity-90 transition-all duration-300 glow-primary"
               >
-                Empezar ahora
+                Agendar diagnóstico gratuito
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
             </motion.div>
@@ -82,7 +81,7 @@ const CTA = () => {
               transition={{ delay: 0.4 }}
               className="mt-8 text-sm text-muted-foreground"
             >
-              Sin compromiso • Respuesta en menos de 24 horas
+              Sin compromiso. Sin pitch de venta agresivo. Solo estrategia.
             </motion.p>
           </motion.div>
         </div>
