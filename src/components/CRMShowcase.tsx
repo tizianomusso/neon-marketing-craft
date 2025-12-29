@@ -172,30 +172,30 @@ const CRMShowcase = () => {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           {/* Video/Demo Section - No 3D effect on mobile */}
           {isMobile ? (
-            <div className="relative w-full max-w-full mx-auto overflow-hidden">
+            <div className="relative">
               {/* Floating Badge */}
-              <div className="absolute -top-4 right-0 z-20 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-3 py-1.5 rounded-full text-xs font-semibold">
-                Tu panel
+              <div className="absolute -top-4 -right-4 z-20 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
+                Tu panel de control
               </div>
 
-              {/* Mobile frame - CONSTRAINED */}
-              <div className="relative w-full bg-gray-900 rounded-xl overflow-hidden border border-gray-800">
+              {/* STATIC IMAGE for mobile - optimized WebP */}
+              <div className="relative bg-gray-900 rounded-2xl overflow-hidden border-2 border-gray-800">
                 {/* Browser Header - simplified */}
-                <div className="flex items-center gap-2 px-3 py-2 bg-gray-900 border-b border-gray-800">
-                  <div className="flex gap-1.5">
-                    <div className="w-2 h-2 rounded-full bg-red-500" />
-                    <div className="w-2 h-2 rounded-full bg-yellow-500" />
-                    <div className="w-2 h-2 rounded-full bg-green-500" />
+                <div className="flex items-center gap-2 px-4 py-3 bg-gray-900 border-b border-gray-800">
+                  <div className="flex gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500" />
+                    <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                    <div className="w-3 h-3 rounded-full bg-green-500" />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="bg-gray-800 rounded px-2 py-1 text-gray-400 text-xs truncate">
-                      crm.innova.com
+                  <div className="flex-1 mx-4">
+                    <div className="bg-gray-800 rounded-lg px-4 py-1.5 text-gray-400 text-sm">
+                      crm.innovasolutions.com
                     </div>
                   </div>
                 </div>
 
-                {/* Static CRM Mockup container - constrained */}
-                <div className="relative w-full aspect-[4/3] bg-gray-950 overflow-hidden">
+                {/* Static CRM Mockup - no animations */}
+                <div className="relative aspect-[4/3] bg-gray-950">
                   <CRMMockup />
                 </div>
               </div>
