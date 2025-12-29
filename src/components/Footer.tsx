@@ -11,6 +11,7 @@ const footerLinks = {
   empresa: [
     { name: 'Proceso', href: '#proceso' },
     { name: 'Casos de éxito', href: '#portfolio' },
+    { name: 'Nosotros', href: '/nosotros' },
     { name: 'Contacto', href: '#contacto' },
   ],
   legal: [
