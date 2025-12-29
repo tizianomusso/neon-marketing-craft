@@ -52,7 +52,7 @@ const AIAgents = () => {
         <div className="container mx-auto px-6 md:px-6 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left column - Content */}
-            <motion.div {...slideLeft}>
+            <motion.div {...slideLeft} className="pl-2 md:pl-0">
               {/* Tagline */}
               <span className="text-cyan-400 text-sm font-semibold tracking-widest mb-4 block">
                 AUTOMATIZACIÓN INTELIGENTE
