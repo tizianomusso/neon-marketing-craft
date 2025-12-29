@@ -72,14 +72,65 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground font-body antialiased;
+    overflow-x: hidden;
   }
 
   ::selection {
     @apply bg-primary/20 text-foreground;
+  }
+
+  /* Mobile layout fixes */
+  @media (max-width: 767px) {
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    /* Ensure all sections have proper padding */
+    section {
+      padding-left: 16px;
+      padding-right: 16px;
+      overflow-x: hidden;
+    }
+
+    /* Container padding */
+    .container {
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+      max-width: 100% !important;
+      overflow-x: hidden;
+    }
+
+    /* Prevent any element from overflowing */
+    img, video, iframe, canvas, svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* CRM and Dashboard mockups - use more specific class names */
+    div[class*="mockup"],
+    div[class*="Mockup"],
+    div[class*="dashboard"],
+    div[class*="Dashboard"] {
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    /* Fix grid layouts that might overflow */
+    .grid {
+      max-width: 100%;
+    }
+
+    /* Ensure text doesn't get cut off */
+    h1, h2, h3, h4, h5, h6, p, span, a {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
   }
 }
 
