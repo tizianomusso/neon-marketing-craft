@@ -9,14 +9,14 @@ import zapierLogo from '@/assets/logos/zapier.svg';
 import hubspotLogo from '@/assets/logos/hubspot.svg';
 
 const tools = [
-  { name: 'Meta Ads', category: 'Publicidad Digital', description: 'Campañas que convierten', logo: metaLogo, bgColor: '#0668E1' },
-  { name: 'Google Ads', category: 'Search & Display', description: 'Capturá demanda activa', logo: googleLogo, bgColor: '#ffffff' },
-  { name: 'TikTok Ads', category: 'Video Marketing', description: 'Alcance masivo', logo: tiktokLogo, bgColor: '#ffffff' },
-  { name: 'Claude AI', category: 'Inteligencia Artificial', description: 'Contenido y análisis', logo: claudeLogo, bgColor: '#D97757' },
-  { name: 'ChatGPT', category: 'IA Generativa', description: 'Automatización inteligente', logo: openaiLogo, bgColor: '#10a37f' },
-  { name: 'n8n', category: 'Automatización', description: 'Workflows sin código', logo: n8nLogo, bgColor: '#ffffff' },
-  { name: 'Zapier', category: 'Integraciones', description: 'Conectá todo', logo: zapierLogo, bgColor: '#ffffff' },
-  { name: 'HubSpot', category: 'CRM', description: 'Gestión de leads', logo: hubspotLogo, bgColor: '#ffffff' },
+  { name: 'Meta Ads', category: 'Publicidad Digital', description: '+300% ROAS para e-commerce', logo: metaLogo, bgColor: '#ffffff' },
+  { name: 'Google Ads', category: 'Search & Display', description: '-40% costo por lead', logo: googleLogo, bgColor: '#ffffff' },
+  { name: 'TikTok Ads', category: 'Video Marketing', description: '+2M impresiones mensuales', logo: tiktokLogo, bgColor: '#ffffff' },
+  { name: 'Claude AI', category: 'Inteligencia Artificial', description: '80% menos tiempo en análisis', logo: claudeLogo, bgColor: '#ffffff' },
+  { name: 'ChatGPT', category: 'IA Generativa', description: '50+ contenidos por semana', logo: openaiLogo, bgColor: '#10a37f' },
+  { name: 'n8n', category: 'Automatización', description: '+100 tareas automatizadas', logo: n8nLogo, bgColor: '#ffffff' },
+  { name: 'Zapier', category: 'Integraciones', description: '20+ apps conectadas', logo: zapierLogo, bgColor: '#ffffff' },
+  { name: 'HubSpot', category: 'CRM', description: '+500 leads gestionados', logo: hubspotLogo, bgColor: '#ffffff' },
 ];
 
 // Duplicate for infinite scroll effect
