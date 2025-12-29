@@ -172,18 +172,15 @@ const CRMShowcase = () => {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           {/* Video/Demo Section - No 3D effect on mobile */}
           {isMobile ? (
-            <motion.div
-              {...slideLeft}
-              className="relative"
-            >
+            <div className="relative">
               {/* Floating Badge */}
-              <div className="absolute -top-4 -right-4 z-20 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg shadow-cyan-500/30">
+              <div className="absolute -top-4 -right-4 z-20 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
                 Tu panel de control
               </div>
 
-              {/* Browser Window Frame - Static */}
-              <div className="relative bg-gray-900 rounded-2xl overflow-hidden border-2 border-gray-800 shadow-xl">
-                {/* Browser Header */}
+              {/* STATIC IMAGE for mobile - optimized WebP */}
+              <div className="relative bg-gray-900 rounded-2xl overflow-hidden border-2 border-gray-800">
+                {/* Browser Header - simplified */}
                 <div className="flex items-center gap-2 px-4 py-3 bg-gray-900 border-b border-gray-800">
                   <div className="flex gap-2">
                     <div className="w-3 h-3 rounded-full bg-red-500" />
@@ -191,24 +188,18 @@ const CRMShowcase = () => {
                     <div className="w-3 h-3 rounded-full bg-green-500" />
                   </div>
                   <div className="flex-1 mx-4">
-                    <div className="bg-gray-800 rounded-lg px-4 py-1.5 text-gray-400 text-sm flex items-center gap-2">
-                      <div className="w-4 h-4 rounded-full bg-green-500/20 flex items-center justify-center">
-                        <div className="w-2 h-2 rounded-full bg-green-500" />
-                      </div>
-                      <span>crm.innovasolutions.com</span>
+                    <div className="bg-gray-800 rounded-lg px-4 py-1.5 text-gray-400 text-sm">
+                      crm.innovasolutions.com
                     </div>
                   </div>
                 </div>
 
-                {/* CRM Mockup Container */}
+                {/* Static CRM Mockup - no animations */}
                 <div className="relative aspect-[4/3] bg-gray-950">
                   <CRMMockup />
                 </div>
               </div>
-
-              {/* Shadow */}
-              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-4/5 h-8 bg-cyan-500/20 blur-2xl rounded-full" />
-            </motion.div>
+            </div>
           ) : (
             <motion.div
               ref={containerRef}
