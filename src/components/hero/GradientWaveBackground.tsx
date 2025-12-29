@@ -1,30 +1,43 @@
 import { memo } from 'react';
 import { motion } from 'framer-motion';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const GradientWaveBackground = memo(() => {
+  const isMobile = useIsMobile();
+
   return (
     <div className="absolute inset-0 overflow-hidden contain-strict">
       {/* Base dark color */}
       <div className="absolute inset-0 bg-[#09090b]" />
       
-      {/* Animated gradient blobs with GPU acceleration */}
-      <motion.div
-        className="absolute inset-0 opacity-50 gpu-accelerated"
-        animate={{
-          background: [
-            'radial-gradient(circle at 20% 50%, rgba(56, 189, 248, 0.4) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 50%)',
-            'radial-gradient(circle at 40% 30%, rgba(56, 189, 248, 0.4) 0%, transparent 50%), radial-gradient(circle at 60% 70%, rgba(255, 255, 255, 0.2) 0%, transparent 50%)',
-            'radial-gradient(circle at 60% 60%, rgba(56, 189, 248, 0.4) 0%, transparent 50%), radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.2) 0%, transparent 50%)',
-            'radial-gradient(circle at 80% 40%, rgba(56, 189, 248, 0.4) 0%, transparent 50%), radial-gradient(circle at 20% 60%, rgba(255, 255, 255, 0.2) 0%, transparent 50%)',
-            'radial-gradient(circle at 20% 50%, rgba(56, 189, 248, 0.4) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 50%)',
-          ],
-        }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
+      {/* Mobile: Static gradient (no animation) */}
+      {isMobile ? (
+        <div 
+          className="absolute inset-0 opacity-50"
+          style={{
+            background: 'radial-gradient(circle at 30% 40%, rgba(56, 189, 248, 0.4) 0%, transparent 50%), radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.2) 0%, transparent 50%)'
+          }}
+        />
+      ) : (
+        /* Desktop: Animated gradient blobs */
+        <motion.div
+          className="absolute inset-0 opacity-50 gpu-accelerated"
+          animate={{
+            background: [
+              'radial-gradient(circle at 20% 50%, rgba(56, 189, 248, 0.4) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 50%)',
+              'radial-gradient(circle at 40% 30%, rgba(56, 189, 248, 0.4) 0%, transparent 50%), radial-gradient(circle at 60% 70%, rgba(255, 255, 255, 0.2) 0%, transparent 50%)',
+              'radial-gradient(circle at 60% 60%, rgba(56, 189, 248, 0.4) 0%, transparent 50%), radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.2) 0%, transparent 50%)',
+              'radial-gradient(circle at 80% 40%, rgba(56, 189, 248, 0.4) 0%, transparent 50%), radial-gradient(circle at 20% 60%, rgba(255, 255, 255, 0.2) 0%, transparent 50%)',
+              'radial-gradient(circle at 20% 50%, rgba(56, 189, 248, 0.4) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 50%)',
+            ],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      )}
       
       {/* Noise texture */}
       <div 
