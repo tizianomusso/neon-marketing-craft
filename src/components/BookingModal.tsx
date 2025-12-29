@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 
 declare global {
   interface Window {
@@ -12,19 +12,25 @@ interface BookingModalProps {
 }
 
 const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
-  useEffect(() => {
-    if (isOpen && window.Cal) {
+  const openCalModal = useCallback(() => {
+    if (window.Cal) {
       window.Cal("openModal", {
-        calLink: "tizi-musso-lvxqn1/diagnostico-gratuito",
-        config: {
-          layout: "month_view"
-        }
+        calLink: "tizi-musso-lvxqn1/diagnostico-gratuito"
       });
-      
-      // Close the React modal state since Cal.com handles its own modal
-      onClose();
     }
-  }, [isOpen, onClose]);
+  }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      // Small delay to ensure Cal.com script is fully loaded
+      const timer = setTimeout(() => {
+        openCalModal();
+        onClose();
+      }, 100);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, openCalModal, onClose]);
 
   // This component doesn't render anything - Cal.com handles the modal
   return null;
