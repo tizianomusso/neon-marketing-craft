@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import metaLogo from '@/assets/logos/meta.svg';
 import googleLogo from '@/assets/logos/google.png';
 import tiktokLogo from '@/assets/logos/tiktok.svg';
-import claudeLogo from '@/assets/logos/claude.svg';
+import claudeLogo from '@/assets/logos/claude.png';
 import openaiLogo from '@/assets/logos/openai.svg';
 import n8nLogo from '@/assets/logos/n8n.svg';
 import zapierLogo from '@/assets/logos/zapier.svg';
