@@ -106,11 +106,17 @@
       overflow-x: clip !important;
     }
 
-    /* Keep full-bleed section backgrounds; pad only inner containers */
+    /* Sections keep full-bleed backgrounds but add padding if no container */
     section {
-      padding-left: 0 !important;
-      padding-right: 0 !important;
       overflow-x: clip !important;
+    }
+
+    /* Pad content inside sections - target direct children that aren't containers */
+    section > div:not(.container),
+    section > article,
+    section > header {
+      padding-left: 16px;
+      padding-right: 16px;
     }
 
     .container {
@@ -121,6 +127,11 @@
       box-sizing: border-box !important;
       margin-left: auto !important;
       margin-right: auto !important;
+    }
+
+    /* Ensure all grids inside sections have padding */
+    section .grid {
+      max-width: 100%;
     }
 
     /* Prevent ANY element from overflowing viewport */
