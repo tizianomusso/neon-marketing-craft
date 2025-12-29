@@ -3,7 +3,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import metaLogo from '@/assets/logos/meta.svg';
 import googleLogo from '@/assets/logos/google.png';
 import tiktokLogo from '@/assets/logos/tiktok.svg';
-import claudeLogo from '@/assets/logos/claude.png';
+import manychatLogo from '@/assets/logos/manychat.png';
 import openaiLogo from '@/assets/logos/openai.svg';
 import n8nLogo from '@/assets/logos/n8n.svg';
 import zapierLogo from '@/assets/logos/zapier.svg';
@@ -13,7 +13,7 @@ const toolsData = [
   { name: 'Meta Ads', category: 'Publicidad Digital', description: 'Escalamos ventas mes a mes', logo: metaLogo, bgColor: '#ffffff' },
   { name: 'Google Ads', category: 'Search & Display', description: 'Captamos clientes buscando', logo: googleLogo, bgColor: '#ffffff' },
   { name: 'TikTok Ads', category: 'Video Marketing', description: 'Alcance a nuevas audiencias', logo: tiktokLogo, bgColor: '#ffffff' },
-  { name: 'Claude AI', category: 'Inteligencia Artificial', description: 'Análisis de datos en minutos', logo: claudeLogo, bgColor: '#ffffff' },
+  { name: 'Manychat', category: 'Automatización Chat', description: 'Respuestas automáticas 24/7', logo: manychatLogo, bgColor: '#ffffff' },
   { name: 'ChatGPT', category: 'IA Generativa', description: 'Contenido optimizado 24/7', logo: openaiLogo, bgColor: '#10a37f' },
   { name: 'n8n', category: 'Automatización', description: 'Procesos sin intervención', logo: n8nLogo, bgColor: '#ffffff' },
   { name: 'Zapier', category: 'Integraciones', description: 'Todo conectado sin fricciones', logo: zapierLogo, bgColor: '#ffffff' },
