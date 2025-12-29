@@ -9,7 +9,7 @@ const Logo = () => {
         className="w-10 h-10 object-contain"
       />
       <span className="font-heading font-bold text-xl">
-        <span className="text-slate-900">Innova</span><span className="text-cyan-500">Solutions</span>
+        <span className="text-white">Innova</span><span className="text-cyan-400">Solutions</span>
       </span>
     </div>
   );
