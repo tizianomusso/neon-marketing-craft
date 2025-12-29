@@ -1,14 +1,15 @@
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 
-const GradientWaveBackground = () => {
+const GradientWaveBackground = memo(() => {
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div className="absolute inset-0 overflow-hidden contain-strict">
       {/* Base dark color */}
       <div className="absolute inset-0 bg-[#09090b]" />
       
-      {/* Animated gradient blobs */}
+      {/* Animated gradient blobs with GPU acceleration */}
       <motion.div
-        className="absolute inset-0 opacity-50"
+        className="absolute inset-0 opacity-50 gpu-accelerated"
         animate={{
           background: [
             'radial-gradient(circle at 20% 50%, rgba(56, 189, 248, 0.4) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 50%)',
@@ -19,7 +20,7 @@ const GradientWaveBackground = () => {
           ],
         }}
         transition={{
-          duration: 10,
+          duration: 15,
           repeat: Infinity,
           ease: 'easeInOut',
         }}
@@ -34,6 +35,8 @@ const GradientWaveBackground = () => {
       />
     </div>
   );
-};
+});
+
+GradientWaveBackground.displayName = 'GradientWaveBackground';
 
 export default GradientWaveBackground;

@@ -1,3 +1,4 @@
+import { memo, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import metaLogo from '@/assets/logos/meta.svg';
 import googleLogo from '@/assets/logos/google.png';
@@ -8,7 +9,7 @@ import n8nLogo from '@/assets/logos/n8n.svg';
 import zapierLogo from '@/assets/logos/zapier.svg';
 import hubspotLogo from '@/assets/logos/hubspot.svg';
 
-const tools = [
+const toolsData = [
   { name: 'Meta Ads', category: 'Publicidad Digital', description: 'Escalamos ventas mes a mes', logo: metaLogo, bgColor: '#ffffff' },
   { name: 'Google Ads', category: 'Search & Display', description: 'Captamos clientes buscando', logo: googleLogo, bgColor: '#ffffff' },
   { name: 'TikTok Ads', category: 'Video Marketing', description: 'Alcance a nuevas audiencias', logo: tiktokLogo, bgColor: '#ffffff' },
@@ -19,26 +20,49 @@ const tools = [
   { name: 'HubSpot', category: 'CRM', description: 'Seguimiento de cada lead', logo: hubspotLogo, bgColor: '#ffffff' },
 ];
 
-// Duplicate for infinite scroll effect
-const duplicatedTools = [...tools, ...tools, ...tools, ...tools];
+// Memoized tool card component
+const ToolCard = memo(({ tool }: { tool: typeof toolsData[0] }) => (
+  <div
+    className="flex-shrink-0 flex items-center gap-4 border border-white/10 backdrop-blur-md rounded-xl px-6 py-4 min-w-[240px] hover:border-white/20 transition-colors cursor-pointer group marquee-item"
+  >
+    <div 
+      className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 p-2"
+      style={{ backgroundColor: tool.bgColor }}
+    >
+      <img src={tool.logo} alt={tool.name} className="w-full h-full object-contain" loading="lazy" />
+    </div>
+    <div className="flex-1 min-w-0">
+      <p className="font-semibold text-white text-sm group-hover:text-cyan-400 transition-colors">
+        {tool.name}
+      </p>
+      <p className="text-xs text-white/50">{tool.category}</p>
+      <p className="text-xs text-white/40 truncate">{tool.description}</p>
+    </div>
+  </div>
+));
+
+ToolCard.displayName = 'ToolCard';
 
 const ToolsMarquee = () => {
+  // Memoize duplicated tools array
+  const duplicatedTools = useMemo(() => [...toolsData, ...toolsData, ...toolsData, ...toolsData], []);
+
   return (
-    <div className="w-full overflow-hidden py-12">
+    <div className="w-full overflow-hidden py-12 contain-layout">
       {/* Title */}
       <p className="text-center text-white/50 text-lg mb-10">
         Herramientas que potencian tu crecimiento
       </p>
       
       {/* Marquee container */}
-      <div className="relative">
+      <div className="relative marquee-container">
         {/* Gradient fades */}
         <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#09090b] to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#09090b] to-transparent z-10 pointer-events-none" />
         
-        {/* Scrolling content */}
+        {/* Scrolling content with GPU acceleration */}
         <motion.div
-          className="flex gap-10"
+          className="flex gap-10 gpu-accelerated"
           animate={{ x: [0, -2000] }}
           transition={{
             x: {
@@ -50,27 +74,7 @@ const ToolsMarquee = () => {
           }}
         >
           {duplicatedTools.map((tool, index) => (
-            <div
-              key={`${tool.name}-${index}`}
-              className="flex-shrink-0 flex items-center gap-4 border border-white/10 backdrop-blur-md rounded-xl px-6 py-4 min-w-[240px] hover:border-white/20 transition-colors cursor-pointer group"
-            >
-              {/* Icon */}
-              <div 
-                className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 p-2"
-                style={{ backgroundColor: tool.bgColor }}
-              >
-                <img src={tool.logo} alt={tool.name} className="w-full h-full object-contain" />
-              </div>
-              
-              {/* Content */}
-              <div className="flex-1 min-w-0">
-                <p className="font-semibold text-white text-sm group-hover:text-cyan-400 transition-colors">
-                  {tool.name}
-                </p>
-                <p className="text-xs text-white/50">{tool.category}</p>
-                <p className="text-xs text-white/40 truncate">{tool.description}</p>
-              </div>
-            </div>
+            <ToolCard key={`${tool.name}-${index}`} tool={tool} />
           ))}
         </motion.div>
       </div>
@@ -78,4 +82,4 @@ const ToolsMarquee = () => {
   );
 };
 
-export default ToolsMarquee;
+export default memo(ToolsMarquee);
