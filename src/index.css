@@ -144,6 +144,34 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  /* GPU acceleration utilities */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    will-change: transform;
+  }
+
+  /* Contain for isolated repaints */
+  .contain-layout {
+    contain: layout style paint;
+  }
+
+  .contain-strict {
+    contain: strict;
+  }
+
+  /* Marquee optimizations */
+  .marquee-container {
+    contain: layout style paint;
+    will-change: transform;
+  }
+
+  .marquee-item {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
 }
 
 @keyframes float {
