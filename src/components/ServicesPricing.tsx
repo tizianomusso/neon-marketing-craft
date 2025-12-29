@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Check, Pause, Play } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 import MetaAdsMockup from "./services/MetaAdsMockup";
 import GoogleAdsMockup from "./services/GoogleAdsMockup";
 import LandingPageMockup from "./services/LandingPageMockup";
@@ -116,14 +117,23 @@ const services: Service[] = [
 ];
 
 const ServicesPricing = () => {
+  const isMobile = useIsMobile();
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoplay, setIsAutoplay] = useState(true);
+  // MOBILE: Disable autoplay completely
+  const [isAutoplay, setIsAutoplay] = useState(!isMobile);
   const [progress, setProgress] = useState(0);
   const autoplayRef = useRef<NodeJS.Timeout | null>(null);
   const progressRef = useRef<NodeJS.Timeout | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(false);
+
+  // Update autoplay state when mobile detection changes
+  useEffect(() => {
+    if (isMobile) {
+      setIsAutoplay(false);
+    }
+  }, [isMobile]);
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -168,9 +178,10 @@ const ServicesPricing = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Autoplay logic
+  // Autoplay logic - DISABLED on mobile
   useEffect(() => {
-    if (!isAutoplay || !isInView) {
+    // Never autoplay on mobile
+    if (isMobile || !isAutoplay || !isInView) {
       if (autoplayRef.current) clearInterval(autoplayRef.current);
       if (progressRef.current) clearInterval(progressRef.current);
       return;
@@ -191,10 +202,12 @@ const ServicesPricing = () => {
       if (autoplayRef.current) clearInterval(autoplayRef.current);
       if (progressRef.current) clearInterval(progressRef.current);
     };
-  }, [isAutoplay, isInView, scrollNext]);
+  }, [isAutoplay, isInView, scrollNext, isMobile]);
 
-  // Keyboard navigation
+  // Keyboard navigation - only on desktop
   useEffect(() => {
+    if (isMobile) return;
+    
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!isInView) return;
       if (e.key === "ArrowLeft") scrollPrev();
@@ -204,9 +217,14 @@ const ServicesPricing = () => {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isInView, scrollPrev, scrollNext, scrollTo]);
+  }, [isInView, scrollPrev, scrollNext, scrollTo, isMobile]);
 
   const currentService = services[currentIndex];
+
+  // Mobile animation props - instant fade only
+  const fadeIn = isMobile
+    ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, transition: { duration: 0.15 }, viewport: { once: true } }
+    : { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.6 } };
 
   return (
     <section 
@@ -214,14 +232,18 @@ const ServicesPricing = () => {
       id="precios" 
       className="relative py-20 md:py-32 overflow-hidden"
     >
-      {/* Dynamic Background */}
-      <motion.div
-        className={`absolute inset-0 bg-gradient-to-br ${currentService.bgAccent}`}
-        key={currentIndex}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      />
+      {/* Dynamic Background - static on mobile */}
+      {isMobile ? (
+        <div className={`absolute inset-0 bg-gradient-to-br ${currentService.bgAccent}`} />
+      ) : (
+        <motion.div
+          className={`absolute inset-0 bg-gradient-to-br ${currentService.bgAccent}`}
+          key={currentIndex}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        />
+      )}
       
       {/* Grid Pattern */}
       <div 
@@ -235,10 +257,7 @@ const ServicesPricing = () => {
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          {...fadeIn}
           className="text-center mb-16"
         >
           <span className="inline-block text-cyan-500 text-sm font-semibold tracking-wider uppercase mb-4">
@@ -260,159 +279,207 @@ const ServicesPricing = () => {
             {/* Navigation & Progress */}
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-4">
-                <motion.button
+                <button
                   onClick={scrollPrev}
                   className="w-12 h-12 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:border-cyan-500 hover:text-cyan-500 transition-colors shadow-sm"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
                 >
                   <ChevronLeft className="w-5 h-5" />
-                </motion.button>
-                <motion.button
+                </button>
+                <button
                   onClick={scrollNext}
                   className="w-12 h-12 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 hover:border-cyan-500 hover:text-cyan-500 transition-colors shadow-sm"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
                 >
                   <ChevronRight className="w-5 h-5" />
-                </motion.button>
+                </button>
               </div>
 
               <div className="flex items-center gap-4">
                 <span className="text-gray-500 text-sm font-medium">
                   {currentIndex + 1} de {services.length}
                 </span>
-                <motion.button
-                  onClick={() => setIsAutoplay(!isAutoplay)}
-                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
-                    isAutoplay 
-                      ? "bg-cyan-500 text-white" 
-                      : "bg-gray-100 text-gray-500"
-                  }`}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {isAutoplay ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                </motion.button>
+                {/* Hide autoplay button on mobile since it's always off */}
+                {!isMobile && (
+                  <button
+                    onClick={() => setIsAutoplay(!isAutoplay)}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
+                      isAutoplay 
+                        ? "bg-cyan-500 text-white" 
+                        : "bg-gray-100 text-gray-500"
+                    }`}
+                  >
+                    {isAutoplay ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                  </button>
+                )}
               </div>
             </div>
 
-            {/* Progress Bar */}
-            <div className="h-1 bg-gray-200 rounded-full mb-8 overflow-hidden">
-              <motion.div
-                className="h-full bg-gradient-to-r from-cyan-500 to-blue-500"
-                initial={{ width: "0%" }}
-                animate={{ width: `${progress}%` }}
-                transition={{ duration: 0.1 }}
-              />
-            </div>
+            {/* Progress Bar - only show on desktop when autoplay is active */}
+            {!isMobile && (
+              <div className="h-1 bg-gray-200 rounded-full mb-8 overflow-hidden">
+                <motion.div
+                  className="h-full bg-gradient-to-r from-cyan-500 to-blue-500"
+                  initial={{ width: "0%" }}
+                  animate={{ width: `${progress}%` }}
+                  transition={{ duration: 0.1 }}
+                />
+              </div>
+            )}
 
-            {/* Service Content */}
+            {/* Service Content - simplified animations on mobile */}
             <AnimatePresence mode="wait">
-              <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 50 }}
-                transition={{ duration: 0.4 }}
-              >
-                {/* Popular Badge */}
-                {currentService.popular && (
-                  <motion.div
-                    className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-bold px-4 py-1.5 rounded-full mb-4"
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
-                  >
-                    <span className="animate-pulse">⭐</span>
-                    MÁS POPULAR
-                  </motion.div>
-                )}
+              {isMobile ? (
+                // Mobile: Static content, no exit animations
+                <div key={currentIndex}>
+                  {currentService.popular && (
+                    <div className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-bold px-4 py-1.5 rounded-full mb-4">
+                      <span>⭐</span>
+                      MÁS POPULAR
+                    </div>
+                  )}
 
-                {/* Title */}
-                <motion.h3
-                  className="text-3xl md:text-4xl font-bold text-gray-900 mb-3"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                >
-                  {currentService.title}
-                </motion.h3>
+                  <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+                    {currentService.title}
+                  </h3>
 
-                {/* Subtitle */}
-                <motion.p
-                  className="text-gray-600 text-lg mb-6"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15 }}
-                >
-                  {currentService.subtitle}
-                </motion.p>
+                  <p className="text-gray-600 text-lg mb-6">
+                    {currentService.subtitle}
+                  </p>
 
-                {/* Price */}
-                <motion.div
-                  className="mb-8"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-4xl md:text-5xl font-black text-gray-900">
-                      {currentService.price}
-                    </span>
-                    {currentService.priceNote && (
-                      <span className="text-gray-500 text-lg">
-                        {currentService.priceNote}
+                  <div className="mb-8">
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-4xl md:text-5xl font-black text-gray-900">
+                        {currentService.price}
                       </span>
-                    )}
+                      {currentService.priceNote && (
+                        <span className="text-gray-500 text-lg">
+                          {currentService.priceNote}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </motion.div>
 
-                {/* Features */}
-                <motion.div
-                  className="space-y-3 mb-8"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.25 }}
-                >
-                  {currentService.features.map((feature, i) => (
-                    <motion.div
-                      key={feature}
-                      className="flex items-center gap-3"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.3 + i * 0.05 }}
-                    >
-                      <div className="w-6 h-6 rounded-full bg-cyan-100 flex items-center justify-center flex-shrink-0">
-                        <Check className="w-4 h-4 text-cyan-600" />
+                  <div className="space-y-3 mb-8">
+                    {currentService.features.map((feature) => (
+                      <div key={feature} className="flex items-center gap-3">
+                        <div className="w-6 h-6 rounded-full bg-cyan-100 flex items-center justify-center flex-shrink-0">
+                          <Check className="w-4 h-4 text-cyan-600" />
+                        </div>
+                        <span className="text-gray-700">{feature}</span>
                       </div>
-                      <span className="text-gray-700">{feature}</span>
-                    </motion.div>
-                  ))}
-                </motion.div>
+                    ))}
+                  </div>
 
-                {/* CTA Button */}
-                <motion.a
-                  href="https://wa.me/5491162000741"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold px-8 py-4 rounded-xl hover:shadow-lg hover:shadow-cyan-500/25 transition-all"
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
+                  <a
+                    href="https://wa.me/5491162000741"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold px-8 py-4 rounded-xl hover:shadow-lg hover:shadow-cyan-500/25 transition-all"
+                  >
+                    Solicitar Cotización
+                    <ChevronRight className="w-5 h-5" />
+                  </a>
+                </div>
+              ) : (
+                // Desktop: Full animations
+                <motion.div
+                  key={currentIndex}
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 50 }}
+                  transition={{ duration: 0.4 }}
                 >
-                  Solicitar Cotización
-                  <ChevronRight className="w-5 h-5" />
-                </motion.a>
-              </motion.div>
+                  {currentService.popular && (
+                    <motion.div
+                      className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-bold px-4 py-1.5 rounded-full mb-4"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
+                    >
+                      <span className="animate-pulse">⭐</span>
+                      MÁS POPULAR
+                    </motion.div>
+                  )}
+
+                  <motion.h3
+                    className="text-3xl md:text-4xl font-bold text-gray-900 mb-3"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    {currentService.title}
+                  </motion.h3>
+
+                  <motion.p
+                    className="text-gray-600 text-lg mb-6"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 }}
+                  >
+                    {currentService.subtitle}
+                  </motion.p>
+
+                  <motion.div
+                    className="mb-8"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-4xl md:text-5xl font-black text-gray-900">
+                        {currentService.price}
+                      </span>
+                      {currentService.priceNote && (
+                        <span className="text-gray-500 text-lg">
+                          {currentService.priceNote}
+                        </span>
+                      )}
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    className="space-y-3 mb-8"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.25 }}
+                  >
+                    {currentService.features.map((feature, i) => (
+                      <motion.div
+                        key={feature}
+                        className="flex items-center gap-3"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.3 + i * 0.05 }}
+                      >
+                        <div className="w-6 h-6 rounded-full bg-cyan-100 flex items-center justify-center flex-shrink-0">
+                          <Check className="w-4 h-4 text-cyan-600" />
+                        </div>
+                        <span className="text-gray-700">{feature}</span>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+
+                  <motion.a
+                    href="https://wa.me/5491162000741"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold px-8 py-4 rounded-xl hover:shadow-lg hover:shadow-cyan-500/25 transition-all"
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    Solicitar Cotización
+                    <ChevronRight className="w-5 h-5" />
+                  </motion.a>
+                </motion.div>
+              )}
             </AnimatePresence>
 
             {/* Dots Navigation */}
             <div className="flex items-center gap-2 mt-8">
               {services.map((service, i) => (
-                <motion.button
+                <button
                   key={service.id}
                   onClick={() => scrollTo(i)}
                   className={`relative h-2 rounded-full transition-all ${
@@ -420,17 +487,7 @@ const ServicesPricing = () => {
                       ? "w-8 bg-cyan-500" 
                       : "w-2 bg-gray-300 hover:bg-gray-400"
                   }`}
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                >
-                  {/* Tooltip on hover */}
-                  <motion.span
-                    className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 pointer-events-none"
-                    whileHover={{ opacity: 1 }}
-                  >
-                    {service.title}
-                  </motion.span>
-                </motion.button>
+                />
               ))}
             </div>
           </div>
@@ -439,19 +496,21 @@ const ServicesPricing = () => {
           <div className="order-1 lg:order-2">
             <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
               <div className="flex">
-                {services.map((service) => (
+                {services.map((service, index) => (
                   <div 
                     key={service.id} 
                     className="flex-[0_0_100%] min-w-0 px-2"
                   >
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.9, y: 50 }}
-                      whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      {service.mockup}
-                    </motion.div>
+                    {/* Only render current and adjacent slides for performance */}
+                    {Math.abs(currentIndex - index) <= 1 || 
+                     (currentIndex === 0 && index === services.length - 1) ||
+                     (currentIndex === services.length - 1 && index === 0) ? (
+                      <div>
+                        {service.mockup}
+                      </div>
+                    ) : (
+                      <div className="aspect-[4/3] bg-gray-100 rounded-xl" />
+                    )}
                   </div>
                 ))}
               </div>

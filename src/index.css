@@ -289,38 +289,34 @@
 
 /* Mobile animation optimizations (screens < 768px) */
 @media (max-width: 767px) {
-  /* Reduce all animation durations to max 300ms */
+  /* CRITICAL: Remove all animation delays on mobile */
   * {
-    --animation-duration: 300ms;
+    animation-delay: 0s !important;
   }
 
-  /* Simpler transitions for mobile */
-  .animate-float {
-    animation-duration: 4s;
-    animation-timing-function: ease-in-out;
+  /* Disable all continuous/loop animations */
+  .animate-float,
+  .animate-pulse,
+  .animate-pulse-glow,
+  .animate-gradient,
+  .animate-shimmer {
+    animation: none !important;
   }
 
-  .animate-pulse-glow {
-    animation-duration: 3s;
+  /* Max 150ms for any transition/animation */
+  [class*="animate-"],
+  [class*="transition-"] {
+    animation-duration: 150ms !important;
+    transition-duration: 150ms !important;
   }
 
-  /* Force GPU acceleration on animated elements */
+  /* Force GPU acceleration */
   [class*="animate-"],
   [class*="transition-"],
   .motion-safe {
     will-change: transform, opacity;
     transform: translateZ(0);
     backface-visibility: hidden;
-  }
-
-  /* Reduce animation complexity */
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0) translateZ(0);
-    }
-    50% {
-      transform: translateY(-10px) translateZ(0);
-    }
   }
 
   /* Disable complex shadows on mobile for performance */
@@ -331,7 +327,7 @@
 
   /* Simpler hover effects */
   .hover-scale {
-    transition: transform 200ms ease-out, opacity 200ms ease-out;
+    transition: transform 150ms ease-out, opacity 150ms ease-out;
   }
 
   .hover-scale:active {
