@@ -46,10 +46,10 @@ const AnimatedCounter = ({ end, duration = 2, prefix = '', suffix = '', label }:
       transition={{ duration: 0.6 }}
       className="text-center"
     >
-      <div className="font-heading text-4xl md:text-5xl font-bold gradient-text mb-2">
+      <div className="text-4xl font-bold text-cyan-500 mb-2">
         {prefix}{count.toLocaleString()}{suffix}
       </div>
-      <div className="text-muted-foreground text-sm md:text-base">{label}</div>
+      <div className="text-slate-600 text-sm md:text-base">{label}</div>
     </motion.div>
   );
 };
