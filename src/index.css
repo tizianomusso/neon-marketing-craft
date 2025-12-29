@@ -6,34 +6,24 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 220 20% 10%;
-
     --card: 210 20% 98%;
     --card-foreground: 220 20% 10%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 220 20% 10%;
-
     --primary: 189 94% 43%;
     --primary-foreground: 0 0% 100%;
-
     --secondary: 210 20% 96%;
     --secondary-foreground: 220 20% 20%;
-
     --muted: 210 20% 96%;
     --muted-foreground: 220 10% 50%;
-
     --accent: 189 94% 43%;
     --accent-foreground: 0 0% 100%;
-
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-
     --border: 220 13% 90%;
     --input: 220 13% 90%;
     --ring: 189 94% 43%;
-
     --radius: 0.75rem;
-
     --glow-primary: 0 0 60px hsl(189 94% 43% / 0.3);
     --glow-secondary: 0 0 60px hsl(189 94% 43% / 0.2);
     --gradient-primary: linear-gradient(135deg, hsl(189 94% 43%), hsl(199 89% 48%));
@@ -91,14 +81,12 @@
       width: 100%;
     }
 
-    /* Ensure all sections have proper padding */
     section {
       padding-left: 16px;
       padding-right: 16px;
       overflow-x: hidden;
     }
 
-    /* Container padding */
     .container {
       padding-left: 16px !important;
       padding-right: 16px !important;
@@ -106,13 +94,11 @@
       overflow-x: hidden;
     }
 
-    /* Prevent any element from overflowing */
     img, video, iframe, canvas, svg {
       max-width: 100%;
       height: auto;
     }
 
-    /* CRM and Dashboard mockups - use more specific class names */
     div[class*="mockup"],
     div[class*="Mockup"],
     div[class*="dashboard"],
@@ -121,12 +107,10 @@
       overflow: hidden;
     }
 
-    /* Fix grid layouts that might overflow */
     .grid {
       max-width: 100%;
     }
 
-    /* Ensure text doesn't get cut off */
     h1, h2, h3, h4, h5, h6, p, span, a {
       word-wrap: break-word;
       overflow-wrap: break-word;
@@ -196,15 +180,12 @@
     text-wrap: balance;
   }
 
-  /* GPU acceleration utilities */
   .gpu-accelerated {
     transform: translateZ(0);
     backface-visibility: hidden;
-    perspective: 1000px;
     will-change: transform;
   }
 
-  /* Contain for isolated repaints */
   .contain-layout {
     contain: layout style paint;
   }
@@ -213,7 +194,6 @@
     contain: strict;
   }
 
-  /* Marquee optimizations */
   .marquee-container {
     contain: layout style paint;
     will-change: transform;
@@ -224,80 +204,42 @@
     backface-visibility: hidden;
   }
 
-  /* Mobile-optimized animation utilities */
   .animate-gpu {
     will-change: transform, opacity;
     transform: translateZ(0);
   }
 }
 
-/* Keyframe animations using only GPU-accelerated properties */
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px) translateZ(0);
-  }
-  50% {
-    transform: translateY(-20px) translateZ(0);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
 }
 
 @keyframes pulseGlow {
-  0%, 100% {
-    opacity: 0.6;
-    transform: scale(1) translateZ(0);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.02) translateZ(0);
-  }
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
 }
 
 @keyframes gradientMove {
-  0% {
-    transform: translateX(0%) translateZ(0);
-  }
-  50% {
-    transform: translateX(-25%) translateZ(0);
-  }
-  100% {
-    transform: translateX(0%) translateZ(0);
-  }
+  0% { transform: translateX(0%); }
+  50% { transform: translateX(-25%); }
+  100% { transform: translateX(0%); }
 }
 
 @keyframes shimmer {
-  0% {
-    transform: translateX(-100%) translateZ(0);
-    opacity: 0;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    transform: translateX(100%) translateZ(0);
-    opacity: 0;
-  }
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { opacity: 0.5; }
+  100% { transform: translateX(100%); opacity: 0; }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px) translateZ(0);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) translateZ(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95) translateZ(0);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateZ(0);
-  }
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .animate-shimmer {
@@ -309,21 +251,12 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    hsl(189 94% 43% / 0.1) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg, transparent 0%, hsl(189 94% 43% / 0.1) 50%, transparent 100%);
   animation: shimmer 2s infinite;
-  will-change: transform, opacity;
 }
 
-/* Respect user preference for reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -338,49 +271,27 @@
   }
 }
 
-/* Mobile animation optimizations (screens < 768px) */
+/* ===========================================
+   MOBILE PERFORMANCE OPTIMIZATIONS
+   Only disable animations, NOT layout transforms
+   =========================================== */
 @media (max-width: 767px) {
-  /* CRITICAL: GPU acceleration for all elements */
-  * {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    animation-delay: 0s !important;
-  }
-
-  /* Kill ALL animations on mobile */
+  /* Kill CSS animations on mobile */
   .animate-float,
   .animate-pulse,
   .animate-pulse-glow,
   .animate-gradient,
-  .animate-shimmer,
-  [class*="animate-"] {
+  .animate-shimmer::after {
     animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
   }
 
-  /* Max 150ms for any transition/animation */
-  [class*="animate-"],
-  [class*="transition-"] {
-    animation-duration: 150ms !important;
-    transition-duration: 150ms !important;
-  }
-
-  /* CRITICAL: Transitions ONLY use opacity and transform */
-  * {
-    transition-property: opacity, transform !important;
-  }
-
-  /* Disable complex shadows on mobile for performance */
+  /* Simplify shadows */
   .glow-primary,
-  .glow-secondary,
-  [class*="shadow-lg"],
-  [class*="shadow-xl"],
-  [class*="shadow-2xl"] {
+  .glow-secondary {
     box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
   }
 
-  /* Disable backdrop-filter (expensive) */
+  /* Disable expensive backdrop-filter */
   .backdrop-blur,
   .backdrop-blur-sm,
   .backdrop-blur-md,
@@ -391,38 +302,23 @@
     -webkit-backdrop-filter: none !important;
   }
 
-  /* Disable blur effects (very expensive) */
+  /* Disable heavy blur effects */
   [class*="blur-3xl"],
   [class*="blur-2xl"],
   [class*="blur-xl"] {
     filter: none !important;
   }
 
-  /* Simpler glass effects - no blur */
+  /* Simpler glass effects */
   .glass,
   .glass-card {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     background: hsl(var(--card) / 0.95) !important;
   }
-
-  /* Simpler hover effects */
-  .hover-scale {
-    transition: opacity 150ms ease-out !important;
-  }
-
-  .hover-scale:active {
-    opacity: 0.8;
-  }
 }
 
-/* Tablet and up: slightly more complex animations allowed */
 @media (min-width: 768px) {
-  .animate-float {
-    animation-duration: 6s;
-  }
-
-  .animate-pulse-glow {
-    animation-duration: 2s;
-  }
+  .animate-float { animation-duration: 6s; }
+  .animate-pulse-glow { animation-duration: 2s; }
 }
