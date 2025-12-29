@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import metaLogo from '@/assets/logos/meta.svg';
-import googleLogo from '@/assets/logos/google.svg';
+import googleLogo from '@/assets/logos/google.png';
 import tiktokLogo from '@/assets/logos/tiktok.svg';
 import instagramLogo from '@/assets/logos/instagram.svg';
 import n8nLogo from '@/assets/logos/n8n.svg';
