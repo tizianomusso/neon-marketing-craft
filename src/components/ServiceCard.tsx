@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { LucideIcon } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ServiceCardProps {
   icon: LucideIcon;
@@ -9,13 +10,27 @@ interface ServiceCardProps {
 }
 
 const ServiceCard = ({ icon: Icon, title, description, index }: ServiceCardProps) => {
+  const isMobile = useIsMobile();
+
+  // Mobile: instant fade-in, no stagger delays, no hover animations
+  const animationProps = isMobile
+    ? {
+        initial: { opacity: 0 },
+        whileInView: { opacity: 1 },
+        viewport: { once: true },
+        transition: { duration: 0.2 },
+      }
+    : {
+        initial: { opacity: 0, y: 30 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: '-50px' },
+        transition: { duration: 0.5, delay: index * 0.1 },
+        whileHover: { y: -8, scale: 1.02 },
+      };
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -8, scale: 1.02 }}
+      {...animationProps}
       className="group relative p-6 md:p-8 rounded-2xl glass-card overflow-hidden cursor-pointer"
     >
       {/* Glow Effect on Hover */}

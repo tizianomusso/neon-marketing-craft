@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Target, Layout, Zap, BarChart3 } from 'lucide-react';
 import ServiceCard from './ServiceCard';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const services = [
   {
@@ -26,6 +27,16 @@ const services = [
 ];
 
 const Services = () => {
+  const isMobile = useIsMobile();
+
+  const fadeIn = isMobile
+    ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, transition: { duration: 0.2 }, viewport: { once: true } }
+    : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
+
+  const fadeInDelay = (delay: number) => isMobile
+    ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, transition: { duration: 0.2 }, viewport: { once: true } }
+    : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 }, transition: { delay }, viewport: { once: true } };
+
   return (
     <section id="servicios" className="py-24 md:py-32 relative overflow-hidden">
       {/* Background */}
@@ -35,28 +46,20 @@ const Services = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            {...fadeIn}
             className="inline-block text-primary text-sm font-semibold tracking-wider uppercase mb-4"
           >
             Nuestros Servicios
           </motion.span>
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
+            {...fadeInDelay(0.1)}
             className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-6"
           >
             Cómo hacemos crecer{' '}
             <span className="gradient-text">tu negocio</span>
           </motion.h2>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
+            {...fadeInDelay(0.2)}
             className="text-muted-foreground text-lg max-w-2xl mx-auto"
           >
             Un sistema completo de crecimiento, no servicios sueltos.
