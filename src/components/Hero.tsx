@@ -53,7 +53,7 @@ const Hero = () => {
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-12 mb-8 lg:mb-12">
                 <motion.h2
                   {...slideLeft}
-                  className="text-4xl md:text-6xl lg:text-8xl font-medium text-white mix-blend-overlay"
+                  className="text-4xl md:text-6xl lg:text-8xl font-medium text-white mix-blend-overlay text-center lg:text-left"
                 >
                   Paid Media
                 </motion.h2>
