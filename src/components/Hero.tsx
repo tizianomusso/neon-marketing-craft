@@ -72,7 +72,7 @@ const Hero = () => {
                 
                 <motion.h2
                   {...slideRight2}
-                  className="text-4xl md:text-6xl lg:text-8xl font-medium text-white mix-blend-overlay text-center lg:text-right"
+                  className="text-3xl md:text-6xl lg:text-8xl font-medium text-white mix-blend-overlay text-center lg:text-right whitespace-nowrap"
                 >
                   Automatización IA
                 </motion.h2>
@@ -82,7 +82,7 @@ const Hero = () => {
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-12">
                 <motion.h2
                   {...slideLeft2}
-                  className="text-4xl md:text-6xl lg:text-8xl font-medium text-white mix-blend-overlay underline decoration-2 underline-offset-8"
+                  className="text-3xl md:text-6xl lg:text-8xl font-medium text-white mix-blend-overlay underline decoration-2 underline-offset-8 text-center w-full lg:w-auto lg:text-left whitespace-nowrap"
                 >
                   Escalar & Crecer
                 </motion.h2>
