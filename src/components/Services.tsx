@@ -1,28 +1,22 @@
 import { motion } from 'framer-motion';
-import { Target, Layout, Zap, BarChart3 } from 'lucide-react';
+import { Megaphone, MonitorSmartphone, BrainCog } from 'lucide-react';
 import ServiceCard from './ServiceCard';
 import { useIsMobile } from '@/hooks/use-mobile';
-
 const services = [
   {
-    icon: Target,
-    title: 'Sistema de Adquisición',
-    description: 'Creamos máquinas de generación de leads y ventas que funcionan mientras dormís. Estrategia, ejecución y optimización constante en Meta Ads, Google Ads y TikTok Ads.',
+    icon: Megaphone,
+    title: 'Publicidad Digital',
+    description: 'Creamos y gestionamos campañas en Meta Ads y Google Ads enfocadas en atraer clientes listos para comprar. Analizamos datos, optimizamos constantemente y escalamos lo que funciona, construyendo una estructura preparada para sostener y proyectar el crecimiento en el tiempo.',
   },
   {
-    icon: Layout,
-    title: 'Assets de Conversión',
-    description: 'Landing pages, sitios web y embudos diseñados para convertir visitantes en clientes. No hacemos páginas bonitas, hacemos páginas que venden.',
+    icon: MonitorSmartphone,
+    title: 'Creación y Optimización Web',
+    description: 'Optimizamos páginas web ya existentes en menos de 72hs, mejorando su diseño, UX/UI y experiencia de compra para aumentar conversiones. También creamos sitios y landing pages desde cero, estratégicamente pensados para transformar el tráfico en ventas y crecimiento para tu negocio.',
   },
   {
-    icon: Zap,
-    title: 'Operaciones Inteligentes',
-    description: 'Automatizamos tu seguimiento, nurturing y atención al cliente con IA. Escalá tu operación sin contratar más personal.',
-  },
-  {
-    icon: BarChart3,
-    title: 'Data & Analytics',
-    description: 'Dashboards en tiempo real, tracking avanzado y reportes que te muestran exactamente qué está funcionando y dónde están las oportunidades.',
+    icon: BrainCog,
+    title: 'Sistema de gestión interno con IA',
+    description: 'Centralizamos la información clave de tu negocio en un CRM con IA que te permite visualizar gastos, resultados y rentabilidad en tiempo real. Detecta desvíos, genera alertas y te ayuda a tomar decisiones más rápidas y estratégicas.',
   },
 ];
 
@@ -67,7 +61,7 @@ const Services = () => {
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <ServiceCard
               key={service.title}
