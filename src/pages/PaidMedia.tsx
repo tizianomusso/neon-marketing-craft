@@ -21,6 +21,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import instagramMockup from '@/assets/mockups/instagram-stories-mockup.png';
+import googleSearchMockup from '@/assets/mockups/google-search-mockup.png';
 
 const metaCards = [
   {
@@ -75,34 +76,56 @@ const metaCards = [
   },
 ];
 
-const googleAdsFeatures = [
+const googleCards = [
   {
     icon: Search,
-    title: 'Campañas de búsqueda',
-    description: 'Aparecer primero cuando tus clientes buscan lo que ofrecés. Keywords de alta intención comercial.',
+    title: 'Armado de estrategia de búsqueda',
+    items: [
+      'Investigación avanzada de palabras clave',
+      'Análisis de intención y volumen',
+      'Definición de estructura de campañas',
+      'Segmentación geográfica y por dispositivo',
+    ],
   },
   {
-    icon: MousePointerClick,
-    title: 'Display y remarketing',
-    description: 'Banners en la red de Google para recuperar visitantes y generar reconocimiento de marca.',
+    icon: FileText,
+    title: 'Configuración y desarrollo de anuncios',
+    items: [
+      'Redacción estratégica orientada a conversión',
+      'Implementación de extensiones',
+      'Optimización de Quality Score',
+      'Ajustes de relevancia y rendimiento',
+    ],
   },
   {
-    icon: ShoppingCart,
-    title: 'Shopping y Performance Max',
-    description: 'Campañas optimizadas para e-commerce con catálogo de productos y automatización de Google.',
+    icon: DollarSign,
+    title: 'Plan de presupuesto',
+    items: [
+      'Distribución estratégica según palabras clave',
+      'Gestión de pujas',
+      'Escalado progresivo según resultados',
+    ],
   },
   {
-    icon: LineChart,
-    title: 'Tracking y conversiones',
-    description: 'Implementación de Google Tag Manager, eventos de conversión y atribución precisa.',
+    icon: SlidersHorizontal,
+    title: 'Optimización continua',
+    items: [
+      'Análisis de términos de búsqueda reales',
+      'Exclusión de tráfico no relevante',
+      'Ajustes diarios en función de métricas',
+      'Mejora constante de costos por conversión',
+    ],
   },
-];
-
-const googleAdsBenefits = [
-  'Investigación de keywords exhaustiva',
-  'Optimización de Quality Score',
-  'Extensiones de anuncio configuradas',
-  'Estrategias de puja automatizadas',
+  {
+    icon: CalendarCheck,
+    title: 'Plan mensual de objetivos',
+    items: [
+      'Definición de metas claras',
+      'Seguimiento de rendimiento',
+      'Ajustes estratégicos mes a mes',
+      'Proyección de crecimiento',
+    ],
+  },
 ];
 
 const PaidMedia = () => {
@@ -246,66 +269,87 @@ const PaidMedia = () => {
       {/* Google Ads Section */}
       <section id="google-ads" className="py-20 md:py-28 scroll-mt-24">
         <div className="container mx-auto px-4 md:px-6 max-w-6xl">
+          {/* 2-column intro: text + image */}
+          <div className="grid lg:grid-cols-5 gap-10 lg:gap-16 items-center mb-16">
+            {/* Image - mobile first */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-2 flex justify-center order-1 lg:order-2"
+            >
+              <img
+                src={googleSearchMockup}
+                alt="Google Ads búsqueda patrocinada mockup"
+                className="w-56 md:w-64 lg:w-full max-w-[300px] drop-shadow-xl"
+                loading="lazy"
+              />
+            </motion.div>
+
+            {/* Text */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="lg:col-span-3 order-2 lg:order-1"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <Search className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-3xl md:text-4xl font-bold text-foreground">Google Ads</h3>
+              </div>
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-4">
+                Google Ads es el principal canal de búsqueda a nivel mundial y uno de los medios más efectivos para captar usuarios con intención activa. A través de este canal, las marcas pueden posicionarse frente a personas que ya están buscando un producto o servicio específico, trabajando sobre búsquedas reales y momentos concretos de decisión.
+              </p>
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-4">
+                Nuestro equipo cuenta con experiencia directa trabajando en Google España dentro del área de publicidad digital, participando en la gestión y optimización de campañas desde la propia plataforma.
+              </p>
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
+                Esa formación interna nos permite trasladar a nuestros clientes metodologías de trabajo, criterios de análisis y procesos de optimización alineados a los estándares utilizados por Google.
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Cards Grid - ¿Qué incluye? */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-12"
+            className="mb-4"
           >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center">
-                <Search className="w-6 h-6 text-red-500" />
-              </div>
-              <h3 className="text-3xl md:text-4xl font-bold text-foreground">Google Ads</h3>
-            </div>
-            <p className="text-muted-foreground text-lg max-w-2xl">
-              Capturá la demanda existente y aparecé justo cuando tus clientes te están buscando.
-            </p>
+            <h4 className="text-xl md:text-2xl font-bold text-foreground mb-8">
+              ¿Qué incluye nuestro servicio en Google Ads?
+            </h4>
           </motion.div>
 
-          {/* Feature Cards */}
-          <div className="grid sm:grid-cols-2 gap-5 mb-12">
-            {googleAdsFeatures.map((feature, i) => (
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+            {googleCards.map((card, i) => (
               <motion.div
-                key={feature.title}
+                key={card.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="group p-6 rounded-2xl border border-border bg-muted/30 hover:border-red-500/30 transition-colors"
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+                className="group p-5 md:p-6 rounded-2xl border border-border bg-muted/30 hover:border-primary/30 transition-colors flex flex-col"
               >
-                <div className="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <feature.icon className="w-5 h-5 text-red-500" />
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <card.icon className="w-5 h-5 text-primary" />
                 </div>
-                <h4 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h4>
-                <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
+                <h5 className="text-sm md:text-base font-semibold text-foreground mb-3">{card.title}</h5>
+                <ul className="space-y-2 flex-1">
+                  {card.items.map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-muted-foreground text-xs md:text-sm">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </motion.div>
             ))}
           </div>
-
-          {/* What's included */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="p-6 md:p-8 rounded-2xl border border-border bg-muted/20"
-          >
-            <div className="flex items-center gap-2 mb-5">
-              <FileText className="w-5 h-5 text-primary" />
-              <h4 className="text-lg font-semibold text-foreground">¿Qué incluye nuestro servicio de Google Ads?</h4>
-            </div>
-            <div className="grid sm:grid-cols-2 gap-3">
-              {googleAdsBenefits.map((b) => (
-                <div key={b} className="flex items-center gap-3">
-                  <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Zap className="w-3 h-3 text-primary" />
-                  </div>
-                  <span className="text-foreground/80 text-sm">{b}</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
         </div>
       </section>
 
