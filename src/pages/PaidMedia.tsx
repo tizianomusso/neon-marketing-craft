@@ -4,41 +4,74 @@ import { motion } from 'framer-motion';
 import {
   Target,
   BarChart3,
-  Users,
-  Eye,
-  TrendingUp,
-  Zap,
   Search,
   MousePointerClick,
   ShoppingCart,
   LineChart,
-  SlidersHorizontal,
+  Zap,
   FileText,
+  Megaphone,
+  Palette,
+  DollarSign,
+  SlidersHorizontal,
+  CalendarCheck,
+  CheckCircle2,
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
+import instagramMockup from '@/assets/mockups/instagram-stories-mockup.png';
 
-const metaAdsFeatures = [
+const metaCards = [
   {
-    icon: Users,
-    title: 'Segmentación avanzada',
-    description: 'Audiencias personalizadas, lookalikes y retargeting para llegar a quienes realmente importan.',
+    icon: Megaphone,
+    title: 'Armado de estrategia publicitaria',
+    items: [
+      'Definición de objetivos comerciales',
+      'Planificación de audiencias',
+      'Diseño de estructura de campañas',
+      'Segmentación avanzada y remarketing',
+    ],
   },
   {
-    icon: Eye,
-    title: 'Creativos estratégicos',
-    description: 'Diseño de piezas adaptadas a cada etapa del embudo: awareness, consideración y conversión.',
+    icon: Palette,
+    title: 'Diseño y adaptación de creativos',
+    items: [
+      'Piezas para Feed',
+      'Historias y Reels',
+      'Carruseles',
+      'Adaptación a distintos formatos',
+      'Testing de variaciones creativas',
+    ],
   },
   {
-    icon: TrendingUp,
+    icon: DollarSign,
+    title: 'Plan de presupuesto',
+    items: [
+      'Distribución estratégica de inversión',
+      'Escalado progresivo según rendimiento',
+      'Redistribución inteligente del presupuesto',
+    ],
+  },
+  {
+    icon: SlidersHorizontal,
     title: 'Optimización continua',
-    description: 'A/B testing, análisis de métricas y ajustes semanales para maximizar el ROAS.',
+    items: [
+      'Ajustes diarios en función de métricas',
+      'Testeo A/B',
+      'Mejora de costos por resultado',
+      'Optimización de embudos',
+    ],
   },
   {
-    icon: BarChart3,
-    title: 'Reportes detallados',
-    description: 'Dashboard con métricas clave: CPA, CPL, ROAS, frecuencia y resultados por campaña.',
+    icon: CalendarCheck,
+    title: 'Plan mensual de objetivos',
+    items: [
+      'Definición de metas claras por período',
+      'Análisis de rendimiento',
+      'Ajustes estratégicos mes a mes',
+      'Proyección de crecimiento',
+    ],
   },
 ];
 
@@ -63,13 +96,6 @@ const googleAdsFeatures = [
     title: 'Tracking y conversiones',
     description: 'Implementación de Google Tag Manager, eventos de conversión y atribución precisa.',
   },
-];
-
-const metaAdsBenefits = [
-  'Estructura de campañas profesional',
-  'Testing de audiencias y creativos',
-  'Pixel y API de conversiones configurados',
-  'Escalado progresivo del presupuesto',
 ];
 
 const googleAdsBenefits = [
@@ -131,66 +157,84 @@ const PaidMedia = () => {
       {/* Meta Ads Section */}
       <section id="meta-ads" className="py-20 md:py-28 scroll-mt-24">
         <div className="container mx-auto px-4 md:px-6 max-w-6xl">
+          {/* 2-column intro: image + text */}
+          <div className="grid lg:grid-cols-5 gap-10 lg:gap-16 items-center mb-16">
+            {/* Image - mobile first */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-2 flex justify-center order-1 lg:order-2"
+            >
+              <img
+                src={instagramMockup}
+                alt="Instagram Ads mockup en smartphone"
+                className="w-48 md:w-56 lg:w-full max-w-[280px] drop-shadow-xl"
+                loading="lazy"
+              />
+            </motion.div>
+
+            {/* Text */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="lg:col-span-3 order-2 lg:order-1"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <Target className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-3xl md:text-4xl font-bold text-foreground">Meta Ads</h3>
+              </div>
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-4">
+                Los anuncios se integran dentro de Facebook e Instagram en formatos como feed, historias, reels y carruseles, adaptándose al comportamiento natural de navegación del usuario.
+              </p>
+              <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
+                Meta es uno de los canales digitales con mayor capacidad de segmentación y alcance, permitiendo impactar audiencias específicas en el momento adecuado, según su interés y comportamiento.
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Cards Grid - ¿Qué incluye? */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-12"
+            className="mb-4"
           >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center">
-                <Target className="w-6 h-6 text-blue-500" />
-              </div>
-              <h3 className="text-3xl md:text-4xl font-bold text-foreground">Meta Ads</h3>
-            </div>
-            <p className="text-muted-foreground text-lg max-w-2xl">
-              Campañas en Facebook e Instagram diseñadas para generar resultados medibles y escalables.
-            </p>
+            <h4 className="text-xl md:text-2xl font-bold text-foreground mb-8">
+              ¿Qué incluye nuestro servicio en Meta?
+            </h4>
           </motion.div>
 
-          {/* Feature Cards */}
-          <div className="grid sm:grid-cols-2 gap-5 mb-12">
-            {metaAdsFeatures.map((feature, i) => (
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+            {metaCards.map((card, i) => (
               <motion.div
-                key={feature.title}
+                key={card.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="group p-6 rounded-2xl border border-border bg-muted/30 hover:border-blue-500/30 transition-colors"
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+                className="group p-5 md:p-6 rounded-2xl border border-border bg-muted/30 hover:border-primary/30 transition-colors flex flex-col"
               >
-                <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <feature.icon className="w-5 h-5 text-blue-500" />
+                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <card.icon className="w-5 h-5 text-primary" />
                 </div>
-                <h4 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h4>
-                <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
+                <h5 className="text-sm md:text-base font-semibold text-foreground mb-3">{card.title}</h5>
+                <ul className="space-y-2 flex-1">
+                  {card.items.map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-muted-foreground text-xs md:text-sm">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </motion.div>
             ))}
           </div>
-
-          {/* What's included */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="p-6 md:p-8 rounded-2xl border border-border bg-muted/20"
-          >
-            <div className="flex items-center gap-2 mb-5">
-              <SlidersHorizontal className="w-5 h-5 text-primary" />
-              <h4 className="text-lg font-semibold text-foreground">¿Qué incluye nuestro servicio de Meta Ads?</h4>
-            </div>
-            <div className="grid sm:grid-cols-2 gap-3">
-              {metaAdsBenefits.map((b) => (
-                <div key={b} className="flex items-center gap-3">
-                  <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                    <Zap className="w-3 h-3 text-primary" />
-                  </div>
-                  <span className="text-foreground/80 text-sm">{b}</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
         </div>
       </section>
 
