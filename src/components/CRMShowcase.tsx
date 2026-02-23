@@ -7,7 +7,6 @@ import {
   Calendar, 
   TrendingUp, 
   Bell,
-  FileText,
   Target,
   Zap,
   CheckCircle2
@@ -89,7 +88,6 @@ const CRMShowcase = () => {
   const springRotateX = useSpring(rotateX, { stiffness: 100, damping: 20 });
   const springRotateY = useSpring(rotateY, { stiffness: 100, damping: 20 });
 
-  // Disable 3D hover effect on mobile
   const handleMouseMove = (e: React.MouseEvent) => {
     if (isMobile || !containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
@@ -105,7 +103,6 @@ const CRMShowcase = () => {
     setIsHovered(false);
   };
 
-  // Mobile: instant fade only
   const fadeIn = isMobile
     ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, transition: { duration: 0.15 }, viewport: { once: true } }
     : { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.6 } };
@@ -119,12 +116,12 @@ const CRMShowcase = () => {
     : { initial: { opacity: 0, x: 50 }, whileInView: { opacity: 1, x: 0 }, viewport: { once: true }, transition: { duration: 0.6, delay: 0.2 } };
 
   return (
-    <section className="py-24 md:py-32 bg-gray-950 relative overflow-hidden">
-      {/* Background Effects - static on mobile */}
+    <section className="py-24 md:py-32 bg-background relative overflow-hidden">
+      {/* Background Effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(hsl(var(--primary)/0.03)_1px,transparent_1px),linear-gradient(90deg,hsl(var(--primary)/0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
       </div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10 overflow-x-hidden">
@@ -133,25 +130,20 @@ const CRMShowcase = () => {
           {...fadeIn}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full text-cyan-400 text-sm font-semibold tracking-wider mb-6">
-            INCLUIDO CON TU CAMPAÑA
+          <span className="inline-block px-4 py-2 bg-primary/10 border border-primary/20 rounded-full text-primary text-sm font-semibold tracking-wider mb-6">
+            CRM CON IA
           </span>
           
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-            No solo hacemos campañas
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
+            Sistema de Gestión Inteligente
           </h2>
           
-          <p className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-6 max-w-4xl mx-auto">
-            Te damos el sistema para medir, ordenar y escalar tu negocio con datos reales.
-          </p>
-          
-          <p className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
-            Cuando trabajás con nosotros, no solo recibís una campaña de ads. Accedés a un CRM personalizado 
-            y un panel de control completo para ver exactamente qué está pasando con tu negocio.
+          <p className="text-muted-foreground text-lg max-w-3xl mx-auto leading-relaxed">
+            Accede a nuestro CRM, medí y ordená tu negocio desde un mismo lugar. Prevení errores comunes como fallas en números de rentabilidad y aprovechá las oportunidades personalizadas recomendadas por la IA.
           </p>
         </motion.div>
 
-        {/* Stats Row - Static values on mobile, no counter animation */}
+        {/* Stats Row */}
         <motion.div
           {...fadeIn}
           className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16"
@@ -159,43 +151,60 @@ const CRMShowcase = () => {
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-6 text-center hover:border-cyan-500/50 transition-all duration-300 group"
+              className="bg-muted/50 border border-border rounded-2xl p-6 text-center hover:border-primary/40 transition-all duration-300 group"
             >
-              <stat.icon className="w-8 h-8 text-cyan-400 mx-auto mb-3 group-hover:scale-110 transition-transform" />
-              <div className="text-3xl md:text-4xl font-bold text-white mb-1">{stat.value}</div>
-              <div className="text-gray-500 text-sm">{stat.label}</div>
+              <stat.icon className="w-8 h-8 text-primary mx-auto mb-3 group-hover:scale-110 transition-transform" />
+              <div className="text-3xl md:text-4xl font-bold text-foreground mb-1">{stat.value}</div>
+              <div className="text-muted-foreground text-sm">{stat.label}</div>
             </div>
           ))}
         </motion.div>
 
+        {/* Buttons */}
+        <motion.div
+          {...fadeIn}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+        >
+          <a
+            href="https://innovasolutionsdashboard.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto px-10 h-13 rounded-full bg-primary text-primary-foreground font-medium text-base hover:bg-primary/90 hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center"
+          >
+            Ver planes
+          </a>
+          <a
+            href="https://innovasolutionsdashboard.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto px-10 h-13 rounded-full border border-border text-foreground font-medium text-base hover:border-primary/40 transition-all duration-300 inline-flex items-center justify-center"
+          >
+            Accede ahora
+          </a>
+        </motion.div>
+
         {/* Main Content - Video + Features */}
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start max-w-full">
-          {/* Video/Demo Section - No 3D effect on mobile */}
+          {/* Video/Demo Section */}
           {isMobile ? (
             <div className="relative max-w-full overflow-hidden">
-              {/* Floating Badge */}
-              <div className="absolute -top-2 right-2 z-20 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-3 py-1.5 rounded-full text-xs font-semibold">
+              <div className="absolute -top-2 right-2 z-20 bg-gradient-to-r from-primary to-blue-500 text-white px-3 py-1.5 rounded-full text-xs font-semibold">
                 Tu panel de control
               </div>
-
-              {/* STATIC IMAGE for mobile - optimized WebP */}
-              <div className="relative bg-gray-900 rounded-xl overflow-hidden border-2 border-gray-800">
-                {/* Browser Header - simplified */}
-                <div className="flex items-center gap-2 px-4 py-3 bg-gray-900 border-b border-gray-800">
+              <div className="relative bg-muted rounded-xl overflow-hidden border-2 border-border">
+                <div className="flex items-center gap-2 px-4 py-3 bg-muted border-b border-border">
                   <div className="flex gap-2">
                     <div className="w-3 h-3 rounded-full bg-red-500" />
                     <div className="w-3 h-3 rounded-full bg-yellow-500" />
                     <div className="w-3 h-3 rounded-full bg-green-500" />
                   </div>
                   <div className="flex-1 mx-4">
-                    <div className="bg-gray-800 rounded-lg px-4 py-1.5 text-gray-400 text-sm">
+                    <div className="bg-background rounded-lg px-4 py-1.5 text-muted-foreground text-sm">
                       crm.innovasolutions.com
                     </div>
                   </div>
                 </div>
-
-                {/* Static CRM Mockup - no animations */}
-                <div className="relative aspect-[4/3] bg-gray-950">
+                <div className="relative aspect-[4/3] bg-background">
                   <CRMMockup />
                 </div>
               </div>
@@ -215,28 +224,25 @@ const CRMShowcase = () => {
               }}
               className="relative"
             >
-              {/* Floating Badge */}
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
-                className="absolute -top-4 -right-4 z-20 bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg shadow-cyan-500/30"
+                className="absolute -top-4 -right-4 z-20 bg-gradient-to-r from-primary to-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg shadow-primary/30"
               >
                 Tu panel de control
               </motion.div>
 
-              {/* Browser Window Frame */}
-              <div className={`relative bg-gray-900 rounded-2xl overflow-hidden border-2 transition-all duration-500 ${isHovered ? 'border-cyan-500/50 shadow-2xl shadow-cyan-500/20' : 'border-gray-800 shadow-xl'}`}>
-                {/* Browser Header */}
-                <div className="flex items-center gap-2 px-4 py-3 bg-gray-900 border-b border-gray-800">
+              <div className={`relative bg-muted rounded-2xl overflow-hidden border-2 transition-all duration-500 ${isHovered ? 'border-primary/50 shadow-2xl shadow-primary/20' : 'border-border shadow-xl'}`}>
+                <div className="flex items-center gap-2 px-4 py-3 bg-muted border-b border-border">
                   <div className="flex gap-2">
                     <div className="w-3 h-3 rounded-full bg-red-500" />
                     <div className="w-3 h-3 rounded-full bg-yellow-500" />
                     <div className="w-3 h-3 rounded-full bg-green-500" />
                   </div>
                   <div className="flex-1 mx-4">
-                    <div className="bg-gray-800 rounded-lg px-4 py-1.5 text-gray-400 text-sm flex items-center gap-2">
+                    <div className="bg-background rounded-lg px-4 py-1.5 text-muted-foreground text-sm flex items-center gap-2">
                       <div className="w-4 h-4 rounded-full bg-green-500/20 flex items-center justify-center">
                         <div className="w-2 h-2 rounded-full bg-green-500" />
                       </div>
@@ -244,27 +250,24 @@ const CRMShowcase = () => {
                     </div>
                   </div>
                 </div>
-
-                {/* CRM Mockup Container */}
-                <div className="relative aspect-[4/3] bg-gray-950">
+                <div className="relative aspect-[4/3] bg-background">
                   <CRMMockup />
                 </div>
               </div>
 
-              {/* Shadow */}
-              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-4/5 h-8 bg-cyan-500/20 blur-2xl rounded-full" />
+              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-4/5 h-8 bg-primary/10 blur-2xl rounded-full" />
             </motion.div>
           )}
 
           {/* Features Section */}
           <motion.div {...slideRight}>
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="w-full grid grid-cols-4 bg-gray-900/50 border border-gray-800 rounded-xl p-1 mb-6">
+              <TabsList className="w-full grid grid-cols-4 bg-muted/50 border border-border rounded-xl p-1 mb-6">
                 {features.map((feature) => (
                   <TabsTrigger
                     key={feature.id}
                     value={feature.id}
-                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-blue-500 data-[state=active]:text-white rounded-lg py-3 text-gray-400 hover:text-white transition-colors"
+                    className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary data-[state=active]:to-blue-500 data-[state=active]:text-white rounded-lg py-3 text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <feature.icon className="w-5 h-5" />
                   </TabsTrigger>
@@ -273,15 +276,15 @@ const CRMShowcase = () => {
 
               {features.map((feature) => (
                 <TabsContent key={feature.id} value={feature.id} className="mt-0">
-                  <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-2xl p-6 md:p-8">
+                  <div className="bg-muted/50 border border-border rounded-2xl p-6 md:p-8">
                     <div className="flex items-center gap-4 mb-4">
-                      <div className="w-14 h-14 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-xl flex items-center justify-center">
-                        <feature.icon className="w-7 h-7 text-cyan-400" />
+                      <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center">
+                        <feature.icon className="w-7 h-7 text-primary" />
                       </div>
-                      <h3 className="text-2xl font-bold text-white">{feature.title}</h3>
+                      <h3 className="text-2xl font-bold text-foreground">{feature.title}</h3>
                     </div>
 
-                    <p className="text-gray-400 mb-6 leading-relaxed">
+                    <p className="text-muted-foreground mb-6 leading-relaxed">
                       {feature.description}
                     </p>
 
@@ -289,9 +292,9 @@ const CRMShowcase = () => {
                       {feature.highlights.map((highlight, index) => (
                         <div
                           key={index}
-                          className="flex items-center gap-3 text-gray-300"
+                          className="flex items-center gap-3 text-foreground/80"
                         >
-                          <CheckCircle2 className="w-5 h-5 text-cyan-400 flex-shrink-0" />
+                          <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
                           <span>{highlight}</span>
                         </div>
                       ))}
@@ -300,27 +303,6 @@ const CRMShowcase = () => {
                 </TabsContent>
               ))}
             </Tabs>
-
-            {/* CTA */}
-            <motion.div
-              {...fadeIn}
-              className="mt-8 p-6 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/30 rounded-2xl"
-            >
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <FileText className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h4 className="text-white font-semibold mb-2">
-                    Sin costo adicional
-                  </h4>
-                  <p className="text-gray-400 text-sm">
-                    El acceso al CRM está incluido en todos nuestros planes de campañas publicitarias. 
-                    No pagás extra por tener el control total de tus datos.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
           </motion.div>
         </div>
       </div>
