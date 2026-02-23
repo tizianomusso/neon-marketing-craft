@@ -7,98 +7,74 @@ import { useIsMobile } from '@/hooks/use-mobile';
 const Hero = () => {
   const isMobile = useIsMobile();
 
-  // Mobile: instant appearance, no delays
   const fadeIn = isMobile
     ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.2 } }
     : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.8 } };
 
-  const slideLeft = isMobile
-    ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.2 } }
-    : { initial: { opacity: 0, x: -30 }, animate: { opacity: 1, x: 0 }, transition: { delay: 0.2, duration: 0.6 } };
-
-  const slideRight = isMobile
-    ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.2 } }
-    : { initial: { opacity: 0, x: 30 }, animate: { opacity: 1, x: 0 }, transition: { delay: 0.3, duration: 0.6 } };
-
-  const slideLeft2 = isMobile
-    ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.2 } }
-    : { initial: { opacity: 0, x: -30 }, animate: { opacity: 1, x: 0 }, transition: { delay: 0.5, duration: 0.6 } };
-
-  const slideRight2 = isMobile
-    ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.2 } }
-    : { initial: { opacity: 0, x: 30 }, animate: { opacity: 1, x: 0 }, transition: { delay: 0.4, duration: 0.6 } };
-
-  const buttonAnim = isMobile
-    ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.2 } }
-    : { initial: { opacity: 0, scale: 0.9 }, animate: { opacity: 1, scale: 1 }, transition: { delay: 0.6, duration: 0.4 } };
+  const slideUp = (delay: number) =>
+    isMobile
+      ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.2 } }
+      : { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { delay, duration: 0.6 } };
 
   return (
     <section className="relative min-h-screen overflow-hidden">
-      {/* Animated gradient background */}
       <GradientWaveBackground />
 
-      {/* Main content container */}
       <div className="relative z-10 min-h-screen flex flex-col">
-        {/* Hero content */}
-        <div className="flex-1 flex items-center justify-center px-4 md:px-6 pt-24 pb-12">
+        <div className="flex-1 flex items-center justify-center px-4 md:px-6 pt-28 pb-16">
           <motion.div
             {...fadeIn}
-            className="w-full max-w-7xl mx-auto border border-white/10 rounded-xl backdrop-blur-sm shadow-2xl p-8 lg:p-16"
+            className="w-full max-w-5xl mx-auto"
           >
-            {/* Row 1: Paid Media + Description */}
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-12 mb-8 lg:mb-12">
-              <motion.h2
-                {...slideLeft}
-                className="text-4xl md:text-6xl lg:text-8xl font-medium text-white mix-blend-overlay text-center lg:text-left"
-              >
-                Paid Media
-              </motion.h2>
+            {/* Título principal */}
+            <motion.h1
+              {...slideUp(0.1)}
+              className="text-center lg:text-left mb-6"
+            >
+              <span className="block text-3xl md:text-5xl lg:text-6xl font-medium text-white/90 leading-tight">
+                Aceleramos el crecimiento
+              </span>
+              <span className="block text-3xl md:text-5xl lg:text-6xl font-semibold text-white leading-tight mt-1">
+                de tu negocio, mejorando cada área.
+              </span>
+            </motion.h1>
 
-              <motion.p
-                {...slideRight}
-                className="max-w-md text-sm text-white/70 text-center lg:text-right leading-relaxed"
-              >
-                Integramos las mejores herramientas de marketing, automatización e inteligencia artificial para crear sistemas de crecimiento predecibles para tu negocio.
-              </motion.p>
-            </div>
+            {/* Subtítulo */}
+            <motion.p
+              {...slideUp(0.25)}
+              className="max-w-2xl text-base md:text-lg text-white/60 leading-relaxed text-center lg:text-left mb-10"
+            >
+              Analizamos cómo funciona tu negocio hoy y mejoramos cada punto clave utilizando AI como herramienta para simplificar, ordenar y acelerar.
+            </motion.p>
 
-            {/* Row 2: Logos + Automatización IA */}
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-12 mb-8 lg:mb-12">
-              <OverlappingLogos />
-
-              <motion.h2
-                {...slideRight2}
-                className="text-3xl md:text-6xl lg:text-8xl font-medium text-white mix-blend-overlay text-center lg:text-right whitespace-nowrap"
-              >
-                Automatización IA
-              </motion.h2>
-            </div>
-
-            {/* Row 3: Escalar & Crecer + CTA Button */}
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-12">
-              <motion.h2
-                {...slideLeft2}
-                className="text-3xl md:text-6xl lg:text-8xl font-medium text-white mix-blend-overlay underline decoration-2 underline-offset-8 text-center w-full lg:w-auto lg:text-left whitespace-nowrap"
-              >
-                Escalar & Crecer
-              </motion.h2>
-
-              <motion.a
-                {...buttonAnim}
-                whileHover={isMobile ? undefined : { scale: 1.05 }}
-                whileTap={isMobile ? undefined : { scale: 0.98 }}
+            {/* CTAs */}
+            <motion.div
+              {...slideUp(0.4)}
+              className="flex flex-col sm:flex-row items-center lg:items-start gap-4 mb-14"
+            >
+              <a
                 href="https://cal.com/tizi-musso-lvxqn1/diagnostico-gratuito"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-12 lg:px-20 h-14 lg:h-20 rounded-full bg-white/90 text-slate-900 font-medium text-lg hover:bg-white hover:shadow-xl transition-all duration-300 flex-shrink-0 inline-flex items-center justify-center"
+                className="w-full sm:w-auto px-10 h-13 rounded-full bg-white text-slate-900 font-medium text-base hover:bg-white/90 hover:shadow-xl transition-all duration-300 inline-flex items-center justify-center"
               >
-                Agendar Diagnóstico
-              </motion.a>
-            </div>
+                Empezar ahora
+              </a>
+              <a
+                href="#servicios"
+                className="w-full sm:w-auto px-10 h-13 rounded-full border border-white/20 text-white/80 font-medium text-base hover:border-white/40 hover:text-white transition-all duration-300 inline-flex items-center justify-center"
+              >
+                Ver servicios
+              </a>
+            </motion.div>
+
+            {/* Logos */}
+            <motion.div {...slideUp(0.55)}>
+              <OverlappingLogos />
+            </motion.div>
           </motion.div>
         </div>
 
-        {/* Tools Marquee */}
         <ToolsMarquee />
       </div>
     </section>
