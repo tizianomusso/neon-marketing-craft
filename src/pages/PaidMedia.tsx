@@ -22,6 +22,21 @@ import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import instagramMockup from '@/assets/mockups/instagram-stories-mockup.png';
 import googleSearchMockup from '@/assets/mockups/google-search-mockup.png';
+import metaLogo from '@/assets/logos/meta.svg';
+import manychatLogo from '@/assets/logos/manychat.png';
+import tiktokLogo from '@/assets/logos/tiktok.svg';
+import instagramLogo from '@/assets/logos/instagram.svg';
+import n8nLogo from '@/assets/logos/n8n.svg';
+import openaiLogo from '@/assets/logos/openai.svg';
+
+const heroLogos = [
+  { name: 'Meta', logo: metaLogo },
+  { name: 'Manychat', logo: manychatLogo },
+  { name: 'TikTok', logo: tiktokLogo },
+  { name: 'Instagram', logo: instagramLogo },
+  { name: 'n8n', logo: n8nLogo },
+  { name: 'OpenAI', logo: openaiLogo },
+];
 
 const metaCards = [
   {
@@ -147,32 +162,75 @@ const PaidMedia = () => {
       <Navbar />
       <WhatsAppButton />
 
-      {/* Hero / Intro */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden">
+      {/* Hero */}
+      <section className="pt-32 pb-16 md:pt-40 md:pb-28 relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
         </div>
 
-        <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-4xl">
+        <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-7xl">
+          {/* Description top-right */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex justify-end mb-8"
+          >
+            <p className="text-muted-foreground text-sm leading-relaxed max-w-xs text-right">
+              Integramos las mejores herramientas de marketing, automatización e inteligencia artificial para crear sistemas de crecimiento predecibles para tu negocio.
+            </p>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center"
           >
-            <span className="inline-block text-primary text-sm font-semibold tracking-wider uppercase mb-4">
+            {/* Line 1: Paid Media */}
+            <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-foreground leading-none mb-3">
               Paid Media
-            </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-              Publicidad Digital
-            </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-3xl mx-auto">
-              Diseñamos estructuras publicitarias en Meta Ads y Google Ads alineadas directamente a tus objetivos comerciales. Cada campaña nace de una estrategia propuesta, se ejecuta con precisión y se optimiza en función de datos reales para escalar resultados de manera sostenible.
-            </p>
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-3xl mx-auto mt-4">
-              Trabajamos con segmentación avanzada, creativos adaptados a cada etapa del embudo y análisis continuo para mejorar rendimiento y rentabilidad.
-            </p>
+            </h1>
+
+            {/* Line 2: Logos + Automatización IA */}
+            <div className="flex items-center flex-nowrap gap-3 mb-3">
+              <div className="flex -space-x-1.5">
+                {heroLogos.map((logo, i) => (
+                  <motion.div
+                    key={logo.name}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.3 + i * 0.08, duration: 0.3 }}
+                    className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white flex items-center justify-center border-2 border-background shadow-md"
+                  >
+                    <img
+                      src={logo.logo}
+                      alt={logo.name}
+                      className="w-6 h-6 md:w-7 md:h-7 object-contain"
+                      loading="eager"
+                    />
+                  </motion.div>
+                ))}
+              </div>
+              <h2 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-foreground leading-none whitespace-nowrap">
+                Automatización IA
+              </h2>
+            </div>
+
+            {/* Line 3: Escalar & Crecer + CTA */}
+            <div className="flex flex-nowrap items-end gap-6 md:gap-10">
+              <h2 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-foreground leading-none border-b-4 border-foreground pb-2 whitespace-nowrap">
+                Escalar & Crecer
+              </h2>
+              <a
+                href="https://cal.com/tizi-musso-lvxqn1/diagnostico-gratuito"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-10 md:px-14 h-14 md:h-16 rounded-full bg-muted text-foreground font-medium text-lg hover:bg-muted/80 transition-all duration-300 inline-flex items-center justify-center mb-2"
+              >
+                Agendar Diagnóstico
+              </a>
+            </div>
           </motion.div>
         </div>
       </section>
