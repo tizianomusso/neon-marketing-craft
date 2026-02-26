@@ -6,7 +6,7 @@ const Logo = () => {
       <img 
         src={logoImage} 
         alt="Innova Solutions Logo" 
-        className="w-10 h-10 object-contain"
+        className="h-10 w-auto object-contain" style={{ minWidth: '160px' }}
       />
     </div>
   );
