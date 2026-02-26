@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
+import BookingModal from './BookingModal';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const CTA = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const isMobile = useIsMobile();
 
   const fadeIn = isMobile
@@ -62,15 +65,13 @@ const CTA = () => {
             <motion.div
               {...fadeInDelay(0.3)}
             >
-              <a
-                href="https://cal.com/tizi-musso-lvxqn1/diagnostico-gratuito"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => setIsModalOpen(true)}
                 className="group inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-primary to-secondary rounded-2xl font-heading font-bold text-lg text-primary-foreground hover:opacity-90 transition-all duration-300 glow-primary"
               >
                 Agendar diagnóstico gratuito
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
+              </button>
             </motion.div>
 
             {/* Trust text */}
@@ -83,6 +84,8 @@ const CTA = () => {
           </motion.div>
         </div>
       </section>
+
+      <BookingModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
   );
 };

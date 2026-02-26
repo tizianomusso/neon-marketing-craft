@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Users, BarChart3, Zap } from 'lucide-react';
+import { Users, BarChart3, Zap, MessageSquare } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const features = [
@@ -15,8 +15,13 @@ const features = [
   },
   {
     icon: Zap,
-    title: 'IA en procesos',
+    title: 'Tecnología de punta',
     description: 'Usamos IA y automatización para hacer en horas lo que antes tomaba días.',
+  },
+  {
+    icon: MessageSquare,
+    title: 'Comunicación real',
+    description: 'Respuesta en menos de 24hs, reuniones semanales y canal directo con tu equipo.',
   },
 ];
 
@@ -47,12 +52,12 @@ const WhyUs = () => {
             className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-6"
           >
             Por qué elegirnos como{' '}
-            <span className="gradient-text">tu agencia</span>
+            <span className="gradient-text">tu partner de growth</span>
           </motion.h2>
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => {
             const cardAnimation = isMobile
               ? {

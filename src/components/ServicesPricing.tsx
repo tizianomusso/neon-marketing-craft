@@ -7,6 +7,7 @@ import MetaAdsMockup from "./services/MetaAdsMockup";
 import GoogleAdsMockup from "./services/GoogleAdsMockup";
 import LandingPageMockup from "./services/LandingPageMockup";
 import EcommerceMockup from "./services/EcommerceMockup";
+import DashboardMockup from "./services/DashboardMockup";
 import SoftwareMockup from "./services/SoftwareMockup";
 
 interface Service {
@@ -82,6 +83,21 @@ const services: Service[] = [
     ],
     mockup: <EcommerceMockup />,
     bgAccent: "from-emerald-500/10 to-teal-500/5",
+  },
+  {
+    id: 5,
+    title: "Sistema Web",
+    subtitle: "Panel administrativo a medida para gestionar tu negocio",
+    price: "$1,200 - $3,000",
+    priceNote: "USD",
+    features: [
+      "Dashboard personalizado",
+      "Roles de usuario",
+      "Reportes y analytics",
+      "Integraciones",
+    ],
+    mockup: <DashboardMockup />,
+    bgAccent: "from-purple-500/10 to-pink-500/5",
   },
   {
     id: 6,
@@ -174,13 +190,13 @@ const ServicesPricing = () => {
     progressRef.current = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) return 0;
-        return prev + 1;
+        return prev + 2;
       });
-    }, 60);
+    }, 100);
 
     autoplayRef.current = setInterval(() => {
       scrollNext();
-    }, 6000);
+    }, 5000);
 
     return () => {
       if (autoplayRef.current) clearInterval(autoplayRef.current);

@@ -1,36 +1,51 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import metaLogo from '@/assets/logos/meta.svg';
+import googleLogo from '@/assets/logos/google.png';
+import tiktokLogo from '@/assets/logos/tiktok.svg';
 import instagramLogo from '@/assets/logos/instagram.svg';
-import googleLogo from '@/assets/logos/google.svg';
+import n8nLogo from '@/assets/logos/n8n.svg';
 import openaiLogo from '@/assets/logos/openai.svg';
 
 const logosData = [
-  { name: 'Meta', logo: metaLogo },
-  { name: 'Instagram', logo: instagramLogo },
-  { name: 'Google', logo: googleLogo },
-  { name: 'OpenAI', logo: openaiLogo },
+  { name: 'Meta', logo: metaLogo, smallPadding: false },
+  { name: 'Google', logo: googleLogo, smallPadding: true },
+  { name: 'TikTok', logo: tiktokLogo, smallPadding: false },
+  { name: 'Instagram', logo: instagramLogo, smallPadding: false },
+  { name: 'n8n', logo: n8nLogo, smallPadding: false },
+  { name: 'OpenAI', logo: openaiLogo, smallPadding: false },
 ];
 
-const OverlappingLogos = () => (
-  <div className="flex justify-center lg:justify-start gap-5 overflow-x-auto scrollbar-hide">
-    {logosData.map((logo, index) => (
-      <motion.div
-        key={logo.name}
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.6 + index * 0.08, duration: 0.35 }}
-        className="flex-shrink-0 bg-white/5 border border-white/10 h-11 w-11 lg:h-14 lg:w-14 rounded-full flex items-center justify-center p-2.5 lg:p-3 opacity-75 hover:opacity-100 transition-opacity"
-      >
-        <img
-          src={logo.logo}
-          alt={logo.name}
-          className="w-full h-full object-contain brightness-0 invert"
-          loading="eager"
-        />
-      </motion.div>
-    ))}
-  </div>
-);
+const LogoCircle = memo(({ logo, index, total }: { logo: typeof logosData[0]; index: number; total: number }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.8, x: -20 }}
+    animate={{ opacity: 1, scale: 1, x: 0 }}
+    transition={{ delay: 0.5 + index * 0.1, duration: 0.4 }}
+    whileHover={{ scale: 1.1, zIndex: 10 }}
+    className={`relative bg-white border border-gray-100 shadow-2xl h-14 w-14 lg:h-20 lg:w-20 rounded-full flex items-center justify-center cursor-pointer transition-transform gpu-accelerated ${logo.smallPadding ? 'p-1 lg:p-1.5' : 'p-3 lg:p-4'}`}
+    style={{ zIndex: total - index }}
+  >
+    <img 
+      src={logo.logo} 
+      alt={logo.name} 
+      className="w-full h-full object-contain"
+      loading="eager"
+    />
+  </motion.div>
+));
+
+LogoCircle.displayName = 'LogoCircle';
+
+const OverlappingLogos = () => {
+  const logos = useMemo(() => logosData, []);
+
+  return (
+    <div className="flex justify-center lg:justify-start -space-x-4 lg:-space-x-6">
+      {logos.map((logo, index) => (
+        <LogoCircle key={logo.name} logo={logo} index={index} total={logos.length} />
+      ))}
+    </div>
+  );
+};
 
 export default memo(OverlappingLogos);

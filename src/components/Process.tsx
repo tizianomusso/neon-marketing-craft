@@ -52,7 +52,7 @@ const Process = () => {
 
   return (
     <section id="proceso" className="py-24 md:py-32 relative overflow-hidden bg-card/30">
-      <div className="container mx-auto px-6 md:px-6">
+      <div className="container mx-auto px-4 md:px-6">
         {/* Header */}
         <div className="text-center mb-16">
           <motion.span
@@ -71,7 +71,7 @@ const Process = () => {
         </div>
 
         {/* Timeline */}
-        <div ref={containerRef} className="relative max-w-4xl mx-auto pl-4 md:pl-0">
+        <div ref={containerRef} className="relative max-w-4xl mx-auto">
           {/* Progress Line - static on mobile, animated on desktop */}
           <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-border md:-translate-x-px">
             {isMobile ? (
@@ -111,7 +111,7 @@ const Process = () => {
                   }`}
                 >
                   {/* Content */}
-                  <div className={`flex-1 ml-20 md:ml-0 pr-4 ${index % 2 === 0 ? 'md:text-right md:pr-16' : 'md:pl-16'}`}>
+                  <div className={`flex-1 ml-20 md:ml-0 ${index % 2 === 0 ? 'md:text-right md:pr-16' : 'md:pl-16'}`}>
                     <span className="text-5xl md:text-6xl font-heading font-bold text-border/50 mb-2 block">
                       {step.number}
                     </span>
