@@ -207,9 +207,7 @@ const PaidMedia = () => {
               className="lg:col-span-3 order-2 lg:order-1"
             >
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <Target className="w-6 h-6 text-primary" />
-                </div>
+                <img src="/images/meta-logo.png" alt="Meta" className="w-12 h-12 object-contain" />
                 <h3 className="text-3xl md:text-4xl font-bold text-foreground">Meta Ads</h3>
               </div>
               <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-4">
