@@ -140,22 +140,22 @@ const Navbar = () => {
           transition={{ duration: 0.3 }}
           className="md:hidden overflow-hidden"
         >
-          <div className="py-6 space-y-4 bg-slate-900/95 backdrop-blur-lg -mx-4 px-4 mt-4 rounded-xl">
+          <div className="py-6 space-y-4 bg-white backdrop-blur-lg -mx-4 px-4 mt-4 rounded-xl shadow-lg">
             {/* Servicios mobile */}
             <div>
               <button
                 onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
-                className="flex items-center justify-between w-full text-lg font-medium text-slate-300 hover:text-white transition-colors"
+                className="flex items-center justify-between w-full py-2 text-lg font-medium text-slate-800 hover:text-slate-950 transition-colors"
               >
                 Servicios
                 <ChevronDown className={`w-5 h-5 transition-transform ${isMobileServicesOpen ? 'rotate-180' : ''}`} />
               </button>
               {isMobileServicesOpen && (
-                <div className="mt-2 ml-4 space-y-2">
+                <div className="mt-1 ml-4 space-y-0">
                   <Link
                     to="/paid-media"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-base text-slate-400 hover:text-white transition-colors"
+                    className="block py-2 text-base text-slate-600 hover:text-slate-900 transition-colors"
                   >
                     Paid Media
                   </Link>
@@ -164,7 +164,7 @@ const Navbar = () => {
                       key={item.name}
                       to={item.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block text-sm text-slate-500 hover:text-white transition-colors ml-3"
+                      className="block py-2 text-sm text-slate-500 hover:text-slate-800 transition-colors ml-3"
                     >
                       {item.name}
                     </Link>
@@ -178,7 +178,7 @@ const Navbar = () => {
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block text-lg font-medium text-slate-300 hover:text-white transition-colors"
+                className="block py-2 text-lg font-medium text-slate-800 hover:text-slate-950 transition-colors"
               >
                 {link.name}
               </a>
@@ -186,7 +186,7 @@ const Navbar = () => {
             <a
               href="#contacto"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="inline-block mt-4 px-6 py-3 border border-white/30 rounded-lg font-semibold text-white hover:bg-white hover:text-slate-900 transition-all"
+              className="inline-block mt-4 px-6 py-3 border border-slate-300 rounded-lg font-semibold text-slate-800 hover:bg-slate-900 hover:text-white transition-all"
             >
               Contactar
             </a>
