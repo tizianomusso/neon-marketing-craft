@@ -11,7 +11,7 @@ import WhatsAppButton from '@/components/WhatsAppButton';
 const Services = lazy(() => import('@/components/Services'));
 const ServicesPricing = lazy(() => import('@/components/ServicesPricing'));
 const AIAgents = lazy(() => import('@/components/AIAgents'));
-const CRMShowcase = lazy(() => import('@/components/CRMShowcase'));
+
 const Process = lazy(() => import('@/components/Process'));
 const Portfolio = lazy(() => import('@/components/Portfolio'));
 const WhyUs = lazy(() => import('@/components/WhyUs'));
@@ -83,7 +83,6 @@ const Index = () => {
             {midInView && (
               <Suspense fallback={<SectionPlaceholder />}>
                 <AIAgents />
-                <CRMShowcase />
                 <Process />
               </Suspense>
             )}
