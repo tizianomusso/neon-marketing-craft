@@ -10,7 +10,7 @@ import WhatsAppButton from '@/components/WhatsAppButton';
 // Lazy load sections below the fold
 const Services = lazy(() => import('@/components/Services'));
 const ServicesPricing = lazy(() => import('@/components/ServicesPricing'));
-const AIAgents = lazy(() => import('@/components/AIAgents'));
+
 
 const Process = lazy(() => import('@/components/Process'));
 const Portfolio = lazy(() => import('@/components/Portfolio'));
@@ -82,7 +82,6 @@ const Index = () => {
           <div ref={midRef}>
             {midInView && (
               <Suspense fallback={<SectionPlaceholder />}>
-                <AIAgents />
                 <Process />
               </Suspense>
             )}
